@@ -1,0 +1,764 @@
+/* ==========================================================================
+   Calico Websites
+   Shared by index.html and apply.html.
+   Layout and card system modelled on mckaylablanca.com, recoloured green.
+   Type follows fourmeasure.com: Jost for display, Inter for the small print.
+   Every colour and font is a variable at the top.
+   ========================================================================== */
+:root {
+  /* Type */
+  --font-display: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --tracking-tight: -0.025em;
+
+  /* Colour: greens, all AA-checked against the surfaces they sit on */
+  --accent: #DAF1E7;           /* the flat field, her cyan's stand-in */
+  --shell: #F8FBFA;            /* the column */
+  --card: #FFFFFF;
+  --surface: #F1F6F4;
+
+  --fg: #18181B;
+  --text-strong: #000000;
+  --text-secondary: #52525B;
+  --text-muted: #71717A;
+  --border: #DBE6E1;
+
+  --primary: #1D7C50;          /* 5.18:1 with white */
+  --primary-strong: #196B48;   /* 6.23:1 on the column */
+  --primary-soft: #59C08C;
+  --primary-pale: #A7DCC2;
+  --primary-dark: #18392C;
+  --on-primary: #FFFFFF;
+
+  --focus: #196B48;
+  --error: #B42318;
+
+  /* Calico patch tones. Swap these to re-coat the cats */
+  --patch-a: #A7DCC2;
+  --patch-b: #59C08C;
+  --patch-c: #DAF1E7;
+
+  /* Shape */
+  --radius-pill: 999px;
+  --radius-card: 1.375rem;     /* 22px, hers */
+  --radius-shell: 2rem;
+  --shadow-soft: 0 1px 2px rgba(24, 57, 44, 0.03);
+  --shadow-lift: 0 16px 40px -18px rgba(24, 57, 44, 0.3);
+  --shadow-shell: 0 30px 80px -24px rgba(24, 57, 44, 0.28), 0 4px 16px -6px rgba(24, 57, 44, 0.12);
+  --shadow-cta: 0 10px 26px -10px rgba(29, 124, 80, 0.6);
+
+  /* Rhythm */
+  --column: 28.75rem;          /* 460px, hers */
+  --gutter: 1.25rem;           /* 20px, hers */
+
+  /* Motion */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 240ms;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  background-color: var(--shell);
+  color: var(--fg);
+  font-family: var(--font-display);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0 max(var(--gutter), env(safe-area-inset-left))
+           calc(3rem + env(safe-area-inset-bottom))
+           max(var(--gutter), env(safe-area-inset-right));
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 50%; top: 0.5rem;
+  transform: translate(-50%, -160%);
+  z-index: 50;
+  background: var(--fg);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-pill);
+  transition: transform 0.2s var(--ease);
+}
+.skip-link:focus-visible { transform: translate(-50%, 0); }
+
+/* --------------------------------------------------------------------------
+   Shell: one centred column, full bleed on phones, a floating card above 560px
+   -------------------------------------------------------------------------- */
+.shell {
+  position: relative;
+  width: 100%;
+  max-width: var(--column);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.shell > * { width: 100%; }
+
+/* --------------------------------------------------------------------------
+   The calico cats
+   One <symbol> in the defs block, re-used everywhere. Patch colours come
+   from --patch-a/b/c, so any instance can wear a different coat.
+   -------------------------------------------------------------------------- */
+.cat-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.cat {
+  display: block;
+  width: auto;
+  color: var(--primary);       /* the outline */
+  overflow: visible;
+}
+
+/* The logo is the plain outline cat. The coat only shows on the footer trio. */
+.hero-art .cat,
+.link-icon .cat,
+.submit .cat,
+.form-done .cat { --coat-opacity: 0; }
+
+/* Hero cat, full-bleed at the top of the column the way her photo is */
+.hero-art {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-top: 2.75rem;
+  padding-bottom: 0.5rem;
+}
+.hero-art::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 -20% auto;
+  height: 118%;
+  background: radial-gradient(ellipse 60% 62% at 50% 42%,
+              rgba(89, 192, 140, 0.34) 0%,
+              rgba(89, 192, 140, 0.12) 46%,
+              rgba(248, 251, 250, 0) 72%);
+  pointer-events: none;
+}
+.hero-art .cat { height: 132px; }
+
+/* Wave on hover, lifted straight from her credit-cat wiggle */
+.hero-art:hover .cat { animation: wiggle 620ms var(--ease); }
+
+@keyframes wiggle {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-9deg); }
+  55%  { transform: rotate(7deg); }
+  80%  { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* --------------------------------------------------------------------------
+   Name + tagline
+   -------------------------------------------------------------------------- */
+.name {
+  margin: 0;
+  font-size: clamp(2.25rem, 10vw, 3rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+.tagline {
+  margin: 0.75rem auto 0;
+  max-width: 21.5rem;
+  text-wrap: pretty;
+  font-size: 1rem;
+  font-weight: var(--fw-medium);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Link rows, her pill cards
+   -------------------------------------------------------------------------- */
+.links {
+  margin-top: 2.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 62px;
+  padding: 12px 22px;
+  text-align: left;
+  border-radius: var(--radius-pill);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+              border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.link:hover, .link:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--primary-soft);
+  box-shadow: var(--shadow-lift);
+}
+.link:active { transform: translateY(0); }
+
+.link-icon {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  color: var(--primary);
+}
+.link-icon .cat, .link-icon svg { width: 100%; height: 100%; }
+
+.link-text { flex: 1 1 auto; min-width: 0; }
+
+.link-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+}
+
+.link-sub {
+  display: block;
+  margin-top: 1px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: var(--fw-regular);
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.link-meta {
+  flex: 0 0 auto;
+  margin-left: 8px;
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* The one filled row: the primary call to action.
+   Sized to its own text and centred, rather than spanning the column. */
+.link--cta {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: 20px 22px;
+  background-color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-cta);
+}
+.link--cta .link-label { color: var(--on-primary); }
+.link--cta .link-sub { color: rgba(255, 255, 255, 0.78); }
+.link--cta .link-icon, .link--cta .link-meta { color: var(--on-primary); }
+.link--cta .link-icon .cat { color: var(--on-primary); }   /* beats .cat's own colour */
+.link--cta:hover, .link--cta:focus-visible { border-color: var(--primary); }
+.link--cta:hover .link-icon .cat { animation: wiggle 620ms var(--ease); }
+
+/* --------------------------------------------------------------------------
+   Section labels, one per section
+   -------------------------------------------------------------------------- */
+.section { margin-top: 2.75rem; }
+
+.section-label {
+  margin: 0 0 0.875rem;
+  font-size: 0.875rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   Work card, built from her fm-card: head row, thumbnail, cta line
+   -------------------------------------------------------------------------- */
+.work-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.work-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px;
+  text-align: left;
+  border-radius: var(--radius-card);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+}
+.work-card:hover, .work-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--primary-soft);
+  box-shadow: var(--shadow-lift);
+}
+.work-card:active { transform: translateY(0); }
+
+/* Phone-shaped frame around the preview. The sites are phone-shaped, so a
+   landscape crop of one shows almost nothing. */
+.work-frame {
+  flex: 0 0 auto;
+  width: 84px;
+  padding: 3px;
+  border-radius: 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: inset 0 1px 2px rgba(24, 57, 44, 0.06);
+}
+
+.work-shot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 0.8125rem;
+  background-color: var(--surface);
+}
+
+.work-text { flex: 1 1 auto; min-width: 0; }
+
+.work-handle {
+  display: block;
+  font-size: 1rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.work-tag {
+  display: block;
+  margin-top: 1px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.work-cta {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  transition: color var(--dur) var(--ease);
+}
+.work-card:hover .work-cta, .work-card:focus-visible .work-cta { color: var(--primary-strong); }
+
+/* --------------------------------------------------------------------------
+   How it works: three short numbered steps
+   -------------------------------------------------------------------------- */
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: var(--radius-card);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.step-num {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background-color: var(--primary);
+  color: var(--on-primary);
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+}
+
+.step-text {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.step-text b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+}
+
+/* --------------------------------------------------------------------------
+   Apply page
+   -------------------------------------------------------------------------- */
+.back-link {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding-right: 8px;
+  font-size: 0.9375rem;
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+}
+.back-link:hover { color: var(--primary-strong); }
+
+.apply-art {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+.apply-art .cat { height: 72px; --coat-opacity: 0; }
+
+.field-hint {
+  margin-top: 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.apply-title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 8vw, 2.125rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+.apply-lead {
+  margin: 0 auto 0.25rem;
+  max-width: 21rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.form {
+  margin-top: 1.25rem;
+  padding: 18px;
+  text-align: left;
+  border-radius: var(--radius-card);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+/* display:flex above would otherwise beat the browser's [hidden] rule,
+   so hiding the form from JS needs saying explicitly. */
+.form[hidden] { display: none; }
+
+.field { display: flex; flex-direction: column; gap: 0.3125rem; }
+
+/* Direct children only. The pill labels live inside .pill-row and must
+   keep their own padding. */
+.field > label,
+.field > legend {
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+.optional { font-weight: var(--fw-regular); color: var(--text-muted); }
+
+.field input,
+.field textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;              /* 16px, stops iOS zooming on focus */
+  line-height: 1.5;
+  color: var(--fg);
+  background-color: var(--shell);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.6875rem 0.875rem;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
+.field input:focus, .field textarea:focus { border-color: var(--primary); background-color: var(--card); }
+.field textarea { resize: vertical; min-height: 5.5rem; }
+
+/* Tappable choices instead of typing. Real radios underneath, so they work
+   with the keyboard, with a screen reader, and in the POST body. */
+.choices {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;                 /* keeps the fieldset from blowing out the card */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.pill-input {
+  position: absolute;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;               /* never squash below the label, wrap instead */
+  white-space: nowrap;
+  min-height: 44px;             /* comfortable thumb target */
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background-color: var(--shell);
+  border: 1px solid var(--border);
+  font-size: 0.9375rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+              color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.pill:hover { border-color: var(--primary-soft); }
+.pill:active { transform: scale(0.97); }
+
+.pill-input:checked + .pill {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.pill-input:focus-visible + .pill {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Formspree honeypot: hidden from people, visible to bots */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+.submit {
+  margin-top: 0.25rem;
+  width: 100%;
+  min-height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--on-primary);
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-cta);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.submit:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift), var(--shadow-cta); }
+.submit:active { transform: translateY(0); }
+.submit .cat { height: 22px; color: var(--on-primary); }
+.submit:hover .cat { animation: wiggle 620ms var(--ease); }
+
+.form[aria-busy="true"] .submit { opacity: 0.6; pointer-events: none; }
+
+/* Only takes up room once it has something to say */
+.form-status:empty { display: none; }
+
+.form-status {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.form-status.is-error { color: var(--error); }
+.form-status.is-success { color: var(--primary-strong); font-weight: var(--fw-medium); }
+
+/* Shown in the form's place once it sends */
+.form-done {
+  margin-top: 1.25rem;
+  padding: 2rem 1.25rem;
+  border-radius: var(--radius-card);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+.form-done[hidden] { display: none; }
+
+.form-done .cat { height: 76px; margin: 0 auto 0.875rem; }
+
+.done-title {
+  font-size: 1.375rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+}
+
+.done-sub {
+  margin-top: 0.375rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Footer: a litter of calicos, like her single credit cat
+   -------------------------------------------------------------------------- */
+.footer {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cats {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+}
+.cats .cat { height: 54px; }
+.cats .cat:nth-child(1) { --patch-a: #C9E9D8; --patch-b: #7FCFA6; height: 44px; }
+.cats .cat:nth-child(2) { --patch-a: #A7DCC2; --patch-b: #59C08C; }
+.cats .cat:nth-child(3) { --patch-a: #DAF1E7; --patch-b: #8ED5B4; height: 40px; transform: scaleX(-1); }
+.cats .cat:nth-child(2):hover { animation: wiggle 620ms var(--ease); }
+
+.footer-meta {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.footer-meta a { color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px; }
+.footer-meta a:hover { color: var(--primary-strong); }
+.footer-wordmark { font-weight: var(--fw-semibold); color: var(--fg); }
+
+/* --------------------------------------------------------------------------
+   Reveal: her --i stagger, but fired on scroll rather than on load,
+   and armed only once JS confirms it's running.
+   -------------------------------------------------------------------------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+  transition-delay: calc(var(--i, 0) * 55ms);
+  will-change: opacity, transform;
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal, .js .reveal.is-visible {
+    opacity: 1; transform: none; transition: none; will-change: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Touch devices: no hover lift, it sticks after a tap */
+@media (hover: none) {
+  .link:hover, .work-card:hover, .submit:hover { transform: none; }
+  .hero-art:hover .cat, .submit:hover .cat, .link--cta:hover .link-icon .cat { animation: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Above 560px the column lifts off the page as a card. Same layout throughout.
+   -------------------------------------------------------------------------- */
+@media (min-width: 560px) {
+  body {
+    align-items: flex-start;
+    background-color: var(--accent);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .shell {
+    max-width: 31.25rem;              /* 460px of content + 20px gutters */
+    margin-block: 2.5rem;
+    padding: 0 1.25rem 2.5rem;
+    background-color: var(--shell);
+    border-radius: var(--radius-shell);
+    box-shadow: var(--shadow-shell);
+  }
+  .hero-art { padding-top: 3.25rem; }
+  .hero-art .cat { height: 146px; }
+}

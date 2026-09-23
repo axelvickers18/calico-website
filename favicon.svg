@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Calico Websites">
+  <rect width="64" height="64" rx="14" fill="#1D7C50"/>
+  <g transform="translate(6.9 4.5) scale(1.65)" fill="none" stroke="#FFFFFF" stroke-width="1.9"
+     stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="13" cy="10" r="5.8"/>
+    <path d="M8.8 6 8.1 1.9 12 4.3"/>
+    <path d="M17.2 6 17.9 1.9 14 4.3"/>
+    <circle cx="11.2" cy="9.6" r=".75" fill="#FFFFFF" stroke="none"/>
+    <circle cx="14.8" cy="9.6" r=".75" fill="#FFFFFF" stroke="none"/>
+    <path d="M13 15.8 9.2 26M13 15.8 16.8 26M9.2 26h7.6"/>
+    <path d="M16.8 26c4.5-.8 5.6-5.6 2.4-7.6"/>
+    <path d="M7.6 11.2H3.2M7.8 12.8 4 13.6"/>
+    <path d="M18.4 11.2h4.4M18.2 12.8 22 13.6"/>
+  </g>
+</svg>
