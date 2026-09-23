@@ -46,7 +46,7 @@
 <link rel="stylesheet" href="/styles.css" />
 </head>
 
-<body>
+<body class="home">
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ==========================================================================
@@ -92,36 +92,52 @@
   </defs>
 </svg>
 
-<div class="shell">
+<div class="page">
 <main id="main">
 
-  <!-- Hero ------------------------------------------------------------- -->
-  <div class="hero-art reveal" role="img" aria-label="Calico Websites logo: a calico cat">
-    <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
+  <div class="hero-split">
+
+    <div class="hero-copy">
+      <div class="hero-logo reveal" role="img" aria-label="Calico Websites logo: a cat">
+        <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
+      </div>
+
+      <h1 class="name reveal" style="--i:1">Calico Websites</h1>
+
+      <!-- Two alternatives if you'd rather:
+           "Link-in-bio pages and simple websites for creators and small businesses.
+            Designed, built and set up for you."
+           "A professional link-in-bio page or small website, without the DIY.
+            You tell me what you need, I handle the rest." -->
+      <p class="tagline reveal" style="--i:2">Custom link-in-bio pages and simple websites for creators and small businesses. I design it and set it up for you.</p>
+
+      <div class="links">
+        <a class="link link--cta reveal" style="--i:3" href="/apply">
+          <span class="link-icon" aria-hidden="true"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+          <span class="link-text">
+            <span class="link-label">Apply for a site</span>
+            <span class="link-sub">Takes about a minute</span>
+          </span>
+          <span class="link-meta" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" style="--i:4">
+      <!-- The stencil holds the real example page, same origin, scaled to fit.
+           Tapping anywhere on it opens that page full size. -->
+      <a class="phone" href="/example" aria-label="Open the example page">
+        <span class="phone-screen">
+          <iframe src="/example" title="Preview of an example link-in-bio page"
+                  loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+        </span>
+      </a>
+      <p class="phone-caption">An example page. Tap to open it.</p>
+    </div>
+
   </div>
 
-  <h1 class="name reveal" style="--i:1">Calico Websites</h1>
-  <!-- Two alternatives if you'd rather:
-       "Link-in-bio pages and simple websites for creators and small businesses.
-        Designed, built and set up for you."
-       "A professional link-in-bio page or small website, without the DIY.
-        You tell me what you need, I handle the rest." -->
-  <p class="tagline reveal" style="--i:2">Custom link-in-bio pages and simple websites for creators and small businesses. I design it and set it up for you.</p>
-
-  <div class="links">
-    <a class="link link--cta reveal" style="--i:3" href="/apply">
-      <span class="link-icon" aria-hidden="true">
-        <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
-      </span>
-      <span class="link-text">
-        <span class="link-label">Apply for a site</span>
-        <span class="link-sub">Takes about a minute</span>
-      </span>
-      <span class="link-meta" aria-hidden="true">→</span>
-    </a>
-
-  </div>
-
+  <div class="home-section">
   <!-- How it works ----------------------------------------------------- -->
   <section class="section" id="how" aria-labelledby="how-title">
     <h2 class="section-label reveal" id="how-title">How it works</h2>
@@ -179,6 +195,8 @@
 
     </div>
   </section>
+
+  </div>
 
 </main>
 

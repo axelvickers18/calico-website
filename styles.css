@@ -921,3 +921,124 @@ p { margin: 0; }
   color: var(--text-secondary);
 }
 .profile-card:hover .profile-cta { color: var(--primary-strong); }
+
+/* --------------------------------------------------------------------------
+   Home page: wide split hero, copy on the left, a phone stencil on the right
+   holding the live example page. Overrides the centred-column shell, which
+   the apply and example pages still use.
+   -------------------------------------------------------------------------- */
+body.home {
+  display: block;
+  background-color: var(--shell);
+  padding: 0 0 calc(3rem + env(safe-area-inset-bottom));
+}
+
+.page {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: max(1.5rem, env(safe-area-inset-left));
+}
+
+.hero-split {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  padding-block: 2.5rem 1rem;
+  text-align: center;
+}
+
+.hero-copy .name { font-size: clamp(2.5rem, 11vw, 3.25rem); }
+.hero-copy .tagline { margin-inline: auto; }
+.hero-copy .links { margin-top: 1.75rem; }
+
+.hero-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.hero-logo .cat { height: 84px; --coat-opacity: 0; }
+
+/* The stencil. Proportions follow a standard handset: 320 x 681. */
+.phone {
+  position: relative;
+  display: block;
+  width: 300px;
+  --screen-w: 288px;
+  --screen-scale: 0.7384;          /* 288 / 390, the width the page renders at */
+  max-width: 100%;
+  margin-inline: auto;
+  aspect-ratio: 320 / 681;
+  padding: 6px;
+  border-radius: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #3F3F46 0%, #18181B 55%, #000000 100%);
+  box-shadow: 0 30px 90px -20px rgba(29, 124, 80, 0.45),
+              0 18px 50px -12px rgba(0, 0, 0, 0.45);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.phone:hover, .phone:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 40px 100px -20px rgba(29, 124, 80, 0.55),
+              0 18px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Glass highlight across the bezel */
+.phone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 48px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 30%,
+                              transparent 70%, rgba(255, 255, 255, 0.05));
+}
+
+.phone-screen {
+  display: block;                  /* it is a <span>: without this, height is ignored */
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 42px;
+  background-color: var(--shell);
+}
+
+/* The example page renders at phone width, then scales down to fit the screen */
+.phone-screen iframe {
+  width: 390px;
+  height: 900px;
+  border: 0;
+  display: block;
+  transform-origin: top left;
+  transform: scale(var(--screen-scale));
+  pointer-events: none;            /* the whole stencil is the link */
+}
+
+.phone-caption {
+  margin-top: 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+@media (min-width: 900px) {
+  .hero-split {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4.5rem;
+    padding-block: 4.5rem 2.5rem;
+    text-align: left;
+  }
+  .hero-logo { justify-content: flex-start; }
+  .hero-copy .name { font-size: clamp(3.25rem, 5vw, 4.25rem); }
+  .hero-copy .tagline { margin-inline: 0; max-width: 26rem; }
+  .hero-copy .link--cta { margin-inline: 0; }
+  .phone { width: 320px; --screen-w: 308px; --screen-scale: 0.7897; }
+}
+
+/* The sections below the hero sit in a readable column, not the full width */
+.home-section { max-width: 34rem; margin-inline: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .phone:hover, .phone:focus-visible { transform: none; }
+}
