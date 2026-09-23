@@ -426,54 +426,58 @@ p { margin: 0; }
 .work-card:hover .work-cta, .work-card:focus-visible .work-cta { color: var(--primary-strong); }
 
 /* --------------------------------------------------------------------------
-   How it works: three short numbered steps
+   How it works: one card, a soft green thread, a dot per step. No numbers.
    -------------------------------------------------------------------------- */
-.steps {
+.flow {
+  position: relative;
   margin: 0;
-  padding: 0;
+  padding: 20px 20px 20px 42px;
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-}
-
-.step {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  text-align: left;
-  padding: 12px 14px;
   border-radius: var(--radius-card);
   background-color: var(--card);
   backdrop-filter: blur(12px) saturate(1.2);
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
   border: 1px solid var(--card-edge);
   box-shadow: var(--shadow-soft);
+  text-align: left;
 }
 
-.step-num {
-  flex: 0 0 auto;
-  width: 26px;
-  height: 26px;
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-pill);
+/* the thread, stopping at the first and last dot rather than the card edge */
+.flow::before {
+  content: "";
+  position: absolute;
+  left: 26px;
+  top: 32px;
+  bottom: 32px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-soft) 55%, var(--primary-pale) 100%);
+}
+
+.flow-step { position: relative; padding-block: 10px; }
+
+.flow-dot {
+  position: absolute;
+  left: -22px;
+  top: 16px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
   background-color: var(--primary);
-  color: var(--on-primary);
-  font-size: 0.8125rem;
-  font-weight: var(--fw-semibold);
+  box-shadow: 0 0 0 4px #FFFFFF;      /* punches the thread out behind the dot */
 }
 
-.step-text {
+.flow-text {
+  display: block;
   font-family: var(--font-body);
   font-size: 0.875rem;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--text-secondary);
 }
-.step-text b {
+.flow-text b {
   display: block;
   font-family: var(--font-display);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: var(--fw-semibold);
   letter-spacing: -0.01em;
   color: var(--text-strong);
@@ -1013,6 +1017,57 @@ body.home {
   transform-origin: top left;
   transform: scale(var(--screen-scale));
   pointer-events: none;            /* the whole stencil is the link */
+}
+
+/* Soft fade at the foot of the screen so the hint never lands on top of text */
+.phone-screen::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(218, 241, 231, 0) 0%, rgba(218, 241, 231, 0.92) 62%, var(--shell) 100%);
+}
+
+/* Sits over the lower screen so the stencil reads as a control, not a picture */
+.phone-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-pill);
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--card-edge);
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.4);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--primary-strong);
+  white-space: nowrap;
+  transform: translateX(-50%);
+  animation: hint-bob 2.8s var(--ease) infinite;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.phone:hover .phone-hint,
+.phone:focus-visible .phone-hint {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+@keyframes hint-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(-4px); }
 }
 
 .phone-caption {
