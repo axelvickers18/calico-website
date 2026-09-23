@@ -729,10 +729,10 @@ p { margin: 0; }
   align-items: flex-end;
   gap: 6px;
 }
-.cats .cat { height: 54px; }
-.cats .cat:nth-child(1) { --patch-a: #C9E9D8; --patch-b: #7FCFA6; height: 44px; }
-.cats .cat:nth-child(2) { --patch-a: #A7DCC2; --patch-b: #59C08C; }
-.cats .cat:nth-child(3) { --patch-a: #DAF1E7; --patch-b: #8ED5B4; height: 40px; transform: scaleX(-1); }
+/* Plain outline, same as the logo. No coats down here. */
+.cats .cat { height: 54px; --coat-opacity: 0; }
+.cats .cat:nth-child(1) { height: 44px; }
+.cats .cat:nth-child(3) { height: 40px; transform: scaleX(-1); }
 .cats .cat:nth-child(2):hover { animation: wiggle 620ms var(--ease); }
 
 .footer-meta {
