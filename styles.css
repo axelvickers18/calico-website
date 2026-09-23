@@ -809,3 +809,115 @@ p { margin: 0; }
   }
   .hero-art { border-radius: var(--radius-shell) var(--radius-shell) 0 0; }
 }
+
+/* --------------------------------------------------------------------------
+   Example page: a sample creator profile so visitors can picture their own.
+   All imagery is the Calico cat standing in for their photos.
+   -------------------------------------------------------------------------- */
+.demo-banner {
+  position: relative;
+  z-index: 2;
+  margin: 1rem 0 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-card);
+  background-color: var(--card);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--card-edge);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.demo-banner b { color: var(--text-strong); }
+
+.location {
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+}
+
+/* A platform card: head row, sample figures, thumbnail strip */
+.profile-card {
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  border-radius: var(--radius-card);
+  background-color: var(--card);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--card-edge);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+}
+.profile-card:hover, .profile-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--primary-soft);
+  box-shadow: var(--shadow-lift);
+}
+
+.profile-head { display: flex; align-items: center; gap: 11px; }
+.profile-head-text { min-width: 0; flex: 1 1 auto; }
+
+.platform {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+}
+
+.profile-handle {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-stats {
+  margin-top: 9px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+  font-size: 0.8125rem;
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+}
+.profile-stats b { font-weight: var(--fw-semibold); color: var(--text-strong); }
+
+.thumb-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+/* Stand-in for a creator's own photos */
+.thumb {
+  aspect-ratio: 3 / 4;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, var(--primary-soft) 0%, var(--primary-pale) 100%);
+  border: 1px solid var(--card-edge);
+}
+.thumb .cat { height: 52%; color: var(--primary-dark); --coat-opacity: 0; }
+.thumb:nth-child(2) { background: linear-gradient(160deg, var(--primary-pale) 0%, var(--accent) 100%); }
+.thumb:nth-child(3) { background: linear-gradient(160deg, var(--accent) 0%, var(--primary-soft) 100%); }
+
+.profile-cta {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+}
+.profile-card:hover .profile-cta { color: var(--primary-strong); }

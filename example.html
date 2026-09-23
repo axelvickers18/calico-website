@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<!-- ===========================================================================
+     SITE URL. Every absolute URL below uses it. To move to a custom domain:
+       sed -i '' 's#https://calico-website.vercel.app#https://yourdomain.com#g' index.html apply.html example.html
+     =========================================================================== -->
+<title>Example page | Calico Websites</title>
+<meta name="description" content="An example of a creator link-in-bio page built by Calico Websites. Sample content, not a real profile." />
+<link rel="canonical" href="https://calico-website.vercel.app/example" />
+<meta name="theme-color" content="#DAF1E7" />
+<meta name="robots" content="noindex" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Calico Websites" />
+<meta property="og:title" content="Example page | Calico Websites" />
+<meta property="og:description" content="An example of a creator link-in-bio page built by Calico Websites. Sample content, not a real profile." />
+<meta property="og:url" content="https://calico-website.vercel.app/example" />
+<meta property="og:image" content="https://calico-website.vercel.app/images/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Calico Websites: custom link-in-bio pages and simple websites." />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap" />
+
+<link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ==========================================================================
+     The calico cat, defined once and re-used. Patches are clipped to the head
+     and body so they stay inside the outline. Recolour with --patch-a/b/c.
+     ========================================================================== -->
+<svg class="cat-defs" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="cc-head"><circle cx="13" cy="10" r="5.8" /></clipPath>
+    <clipPath id="cc-body"><path d="M13 15.8 9.2 26h7.6Z" /></clipPath>
+
+    <symbol id="calico" viewBox="0 0 28 30">
+      <!-- The coat. Patches steer clear of the eyes so the face stays readable,
+           and the whole thing fades out via --coat-opacity on small icons,
+           where the detail would just turn to mush. -->
+      <g style="opacity:var(--coat-opacity, 1)">
+        <circle cx="13" cy="10" r="5.8" fill="#fff" />
+        <path d="M13 15.8 9.2 26h7.6Z" fill="#fff" />
+        <g clip-path="url(#cc-head)">
+          <ellipse cx="16.8" cy="6.4" rx="3.4" ry="2.6" fill="var(--patch-b)" />
+          <ellipse cx="9.6" cy="12.6" rx="3" ry="2.3" fill="var(--patch-a)" />
+          <ellipse cx="8.9" cy="7.4" rx="2.2" ry="1.8" fill="var(--patch-c)" />
+        </g>
+        <g clip-path="url(#cc-body)">
+          <ellipse cx="15.6" cy="24.2" rx="3.4" ry="3.2" fill="var(--patch-b)" />
+          <ellipse cx="10.6" cy="25.8" rx="2.6" ry="2.2" fill="var(--patch-a)" />
+        </g>
+      </g>
+      <!-- outline -->
+      <g fill="none" stroke="currentColor" stroke-width="1.5"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="13" cy="10" r="5.8" />
+        <path d="M8.8 6 8.1 1.9 12 4.3" />
+        <path d="M17.2 6 17.9 1.9 14 4.3" />
+        <circle cx="11.2" cy="9.6" r=".75" fill="currentColor" stroke="none" />
+        <circle cx="14.8" cy="9.6" r=".75" fill="currentColor" stroke="none" />
+        <path d="M13 15.8 9.2 26M13 15.8 16.8 26M9.2 26h7.6" />
+        <path d="M16.8 26c4.5-.8 5.6-5.6 2.4-7.6" />
+        <path d="M7.6 11.2H3.2M7.8 12.8 4 13.6" />
+        <path d="M18.4 11.2h4.4M18.2 12.8 22 13.6" />
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="shell">
+<main id="main">
+
+  <div class="hero-art reveal" role="img" aria-label="Placeholder for your own photo">
+    <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
+  </div>
+
+  <h1 class="name reveal" style="--i:1">Your Name</h1>
+  <p class="tagline reveal" style="--i:2">For brand collabs and partnerships</p>
+  <p class="location reveal" style="--i:2">Based in your city</p>
+
+  <p class="demo-banner reveal" style="--i:3">
+    <b>This is an example page.</b> The name, handles, figures and images are
+    placeholders to show the layout. Yours would use your own photos and your
+    real numbers.
+  </p>
+
+  <div class="links">
+    <a class="link link--cta reveal" style="--i:4" href="/apply">
+      <span class="link-icon" aria-hidden="true">
+        <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
+      </span>
+      <span class="link-text">
+        <span class="link-label">Get a page like this</span>
+        <span class="link-sub">Takes about a minute</span>
+      </span>
+      <span class="link-meta" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+
+  <section class="section" aria-labelledby="channels-title">
+    <h2 class="section-label reveal" id="channels-title">Where to find you</h2>
+    <div class="work-list">
+    <a class="profile-card reveal" href="#" aria-label="Instagram, example profile">
+      <span class="profile-head">
+        <span class="link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></span>
+        <span class="profile-head-text">
+          <span class="platform">Instagram</span>
+          <span class="profile-handle">@yourhandle</span>
+        </span>
+      </span>
+      <span class="profile-stats"><span><b>128K</b> followers</span><span><b>4.2%</b> engagement</span></span>
+      <span class="thumb-grid" aria-hidden="true">
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+      </span>
+      <span class="profile-cta">Open &rarr;</span>
+    </a>
+    <a class="profile-card reveal" href="#" aria-label="TikTok, example profile">
+      <span class="profile-head">
+        <span class="link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M10.5 9.2 15 12l-4.5 2.8Z"/></svg></span>
+        <span class="profile-head-text">
+          <span class="platform">TikTok</span>
+          <span class="profile-handle">@yourhandle</span>
+        </span>
+      </span>
+      <span class="profile-stats"><span><b>86K</b> followers</span><span><b>1.2M</b> likes</span></span>
+      <span class="thumb-grid" aria-hidden="true">
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+      </span>
+      <span class="profile-cta">Open &rarr;</span>
+    </a>
+    <a class="profile-card reveal" href="#" aria-label="YouTube, example profile">
+      <span class="profile-head">
+        <span class="link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M10.5 9.2 15 12l-4.5 2.8Z"/></svg></span>
+        <span class="profile-head-text">
+          <span class="platform">YouTube</span>
+          <span class="profile-handle">@yourhandle</span>
+        </span>
+      </span>
+      <span class="profile-stats"><span><b>24K</b> subscribers</span><span><b>310K</b> views</span></span>
+      <span class="thumb-grid" aria-hidden="true">
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+        <span class="thumb"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+      </span>
+      <span class="profile-cta">Open &rarr;</span>
+    </a>
+    <a class="profile-card reveal" href="#" aria-label="Snapchat, example profile">
+      <span class="profile-head">
+        <span class="link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 17.5V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H8.5Z"/></svg></span>
+        <span class="profile-head-text">
+          <span class="platform">Snapchat</span>
+          <span class="profile-handle">@yourhandle</span>
+        </span>
+      </span>
+      <span class="profile-stats"><span><b>41K</b> subscribers</span></span>
+      <span class="profile-cta">Open &rarr;</span>
+    </a>
+    <a class="profile-card reveal" href="#" aria-label="Amazon storefront, example profile">
+      <span class="profile-head">
+        <span class="link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 8h14l-1.1 11.2a2 2 0 0 1-2 1.8H8.1a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></span>
+        <span class="profile-head-text">
+          <span class="platform">Amazon storefront</span>
+          <span class="profile-handle">@yourhandle</span>
+        </span>
+      </span>
+      <span class="profile-stats"><span><b>38</b> products</span></span>
+      <span class="profile-cta">Open &rarr;</span>
+    </a>
+    </div>
+  </section>
+
+  <p class="demo-banner reveal">
+    Every figure above is made up for this demo. Your page would show your own.
+    <a href="/apply">Apply for yours &rarr;</a>
+  </p>
+
+</main>
+
+<!-- Footer ------------------------------------------------------------- -->
+<footer class="footer">
+  <div class="cats reveal" aria-hidden="true">
+    <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
+    <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
+    <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
+  </div>
+  <div class="footer-meta">
+    <!-- EDIT THESE TWO. Replace the address and the handle with your own.
+         The mailto: and the href both need changing. -->
+    <p class="footer-contact">
+      <a href="mailto:hello@example.com">hello@example.com</a>
+      <span class="footer-dot" aria-hidden="true">&middot;</span>
+      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer">instagram.com/yourhandle</a>
+    </p>
+    <p>&copy; <span class="footer-wordmark">Calico Websites</span> <span data-year>2026</span></p>
+  </div>
+</footer>
+</div>
+
+<script src="/app.js" defer></script>
+</body>
+</html>
