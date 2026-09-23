@@ -102,11 +102,11 @@
   <h1 class="apply-title reveal" style="--i:1">Apply for a site</h1>
   <p class="apply-lead reveal" style="--i:2">A few quick questions. I&rsquo;ll send you a price and a start date, usually within 2 days.</p>
 
-  <!-- Paste your Formspree endpoint into CONFIG.form.endpoint in app.js.
-       That's the one that matters. The action below is only the fallback for
-       visitors with JavaScript off, so paste it here too if you care about them. -->
+  <!-- The action below is the fallback for visitors with JavaScript off.
+       With JS on, app.js posts to CONFIG.form.endpoint instead and keeps
+       them on the page. Keep the two in step. -->
   <form class="form reveal" style="--i:3"
-        data-apply-form method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
+        data-apply-form method="POST" action="https://formspree.io/f/xvkgryrv">
 
     <div class="field">
       <label for="f-name">Your name</label>

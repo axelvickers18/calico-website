@@ -13,17 +13,15 @@ var CONFIG = {
 
   /* ---------------------------------------------------------------------
      APPLICATION FORM → Formspree
-     1. Create a form at https://formspree.io
-     2. Copy the endpoint it gives you (looks like https://formspree.io/f/abcdwxyz)
-     3. Paste it over PASTE_FORMSPREE_ENDPOINT_HERE below.
-     Until you do, the form politely says it isn't connected instead of
-     throwing people at a dead URL.
+     Applications post to the endpoint below and arrive in the Formspree
+     inbox for this form, and by email. To point them somewhere else, swap
+     this endpoint and the matching action="" on the form in apply.html.
      --------------------------------------------------------------------- */
   form: {
-    endpoint: 'PASTE_FORMSPREE_ENDPOINT_HERE',        // <-- EDIT
+    endpoint: 'https://formspree.io/f/xvkgryrv',
     subject: 'New site application (Calico Websites)',
     messages: {
-      notConnected: 'The form isn’t switched on yet. Try again soon.',
+      notConnected: 'The form isn’t switched on yet. Try again soon.',   /* only shown if the endpoint above is cleared */
       sending: 'Sending…',
       error: 'That didn’t send. Check your connection and tap Send again.'
     }
