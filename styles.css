@@ -19,8 +19,11 @@
 
   /* Colour: greens, all AA-checked against the surfaces they sit on */
   --accent: #DAF1E7;           /* the flat field, her cyan's stand-in */
-  --shell: #F8FBFA;            /* the column */
-  --card: #FFFFFF;
+  --shell: #DAF1E7;            /* the column sits on the flat accent, as hers does */
+  --field: #A7DCC2;            /* deeper green behind the column above 560px */
+  --card: rgba(255, 255, 255, 0.72);   /* translucent, like her .fm-card */
+  --card-edge: rgba(24, 24, 27, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.78);
   --surface: #F1F6F4;
 
   --fg: #18181B;
@@ -159,29 +162,45 @@ p { margin: 0; }
 .submit .cat,
 .form-done .cat { --coat-opacity: 0; }
 
-/* Hero cat, full-bleed at the top of the column the way her photo is */
+/* Hero panel: breaks out of the column gutters, fades into the page at the
+   bottom so the name sits in the tail of the fade. */
 .hero-art {
   position: relative;
   isolation: isolate;
+  width: calc(100% + 2 * var(--gutter));
+  margin-inline: calc(var(--gutter) * -1);
+  margin-bottom: -1rem;                 /* pulls the name up into the fade */
+  aspect-ratio: 4 / 5;
+  max-height: 58svh;                    /* never eats a whole phone screen */
+  overflow: hidden;
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: flex-end;
-  padding-top: 2.75rem;
-  padding-bottom: 0.5rem;
+  background: linear-gradient(180deg,
+              var(--primary-soft) 0%,
+              var(--primary-pale) 52%,
+              var(--shell) 100%);
 }
-.hero-art::before {
+
+.hero-art::after {
   content: "";
   position: absolute;
-  z-index: -1;
-  inset: 0 -20% auto;
-  height: 118%;
-  background: radial-gradient(ellipse 60% 62% at 50% 42%,
-              rgba(89, 192, 140, 0.34) 0%,
-              rgba(89, 192, 140, 0.12) 46%,
-              rgba(248, 251, 250, 0) 72%);
+  inset: 0;
   pointer-events: none;
+  background: linear-gradient(180deg,
+              rgba(218, 241, 231, 0) 58%,
+              rgba(218, 241, 231, 0.6) 82%,
+              var(--shell) 100%);
 }
-.hero-art .cat { height: 132px; }
+
+.hero-art .cat {
+  position: relative;
+  z-index: 1;
+  height: 46%;
+  margin-bottom: 8%;
+  color: var(--primary-dark);           /* reads against the mid-green panel */
+  --coat-opacity: 0;
+}
 
 /* Wave on hover, lifted straight from her credit-cat wiggle */
 .hero-art:hover .cat { animation: wiggle 620ms var(--ease); }
@@ -198,6 +217,10 @@ p { margin: 0; }
    Name + tagline
    -------------------------------------------------------------------------- */
 .name {
+  /* The hero panel is positioned, so it would paint over this static heading
+     that the negative margin tucks underneath it. Lift the name above it. */
+  position: relative;
+  z-index: 1;
   margin: 0;
   font-size: clamp(2.25rem, 10vw, 3rem);
   font-weight: var(--fw-bold);
@@ -237,7 +260,9 @@ p { margin: 0; }
   text-align: left;
   border-radius: var(--radius-pill);
   background-color: var(--card);
-  border: 1px solid var(--border);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--card-edge);
   box-shadow: var(--shadow-soft);
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
               border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
@@ -316,7 +341,7 @@ p { margin: 0; }
   font-size: 0.875rem;
   font-weight: var(--fw-semibold);
   letter-spacing: -0.01em;
-  color: var(--primary);
+  color: var(--primary-strong);   /* 5.47:1 on the mint column */
 }
 
 /* --------------------------------------------------------------------------
@@ -333,7 +358,9 @@ p { margin: 0; }
   text-align: left;
   border-radius: var(--radius-card);
   background-color: var(--card);
-  border: 1px solid var(--border);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--card-edge);
   box-shadow: var(--shadow-soft);
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
               border-color var(--dur) var(--ease);
@@ -418,7 +445,9 @@ p { margin: 0; }
   padding: 12px 14px;
   border-radius: var(--radius-card);
   background-color: var(--card);
-  border: 1px solid var(--border);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--card-edge);
   box-shadow: var(--shadow-soft);
 }
 
@@ -506,7 +535,9 @@ p { margin: 0; }
   text-align: left;
   border-radius: var(--radius-card);
   background-color: var(--card);
-  border: 1px solid var(--border);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--card-edge);
   box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
@@ -539,7 +570,7 @@ p { margin: 0; }
   font-size: 1rem;              /* 16px, stops iOS zooming on focus */
   line-height: 1.5;
   color: var(--fg);
-  background-color: var(--shell);
+  background-color: var(--input-bg);
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   padding: 0.6875rem 0.875rem;
@@ -581,7 +612,7 @@ p { margin: 0; }
   min-height: 44px;             /* comfortable thumb target */
   padding: 0 16px;
   border-radius: var(--radius-pill);
-  background-color: var(--shell);
+  background-color: var(--input-bg);
   border: 1px solid var(--border);
   font-size: 0.9375rem;
   font-weight: var(--fw-medium);
@@ -653,7 +684,9 @@ p { margin: 0; }
   padding: 2rem 1.25rem;
   border-radius: var(--radius-card);
   background-color: var(--card);
-  border: 1px solid var(--border);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--card-edge);
   box-shadow: var(--shadow-soft);
 }
 .form-done[hidden] { display: none; }
@@ -701,7 +734,7 @@ p { margin: 0; }
 .footer-meta {
   font-family: var(--font-body);
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);   /* 6.52:1 on the mint column */
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
@@ -762,17 +795,17 @@ p { margin: 0; }
 @media (min-width: 560px) {
   body {
     align-items: flex-start;
-    background-color: var(--accent);
+    background-color: var(--field);
     padding-bottom: env(safe-area-inset-bottom);
   }
   .shell {
     max-width: 31.25rem;              /* 460px of content + 20px gutters */
     margin-block: 2.5rem;
     padding: 0 1.25rem 2.5rem;
+    overflow: hidden;                 /* clips the hero to the rounded top */
     background-color: var(--shell);
     border-radius: var(--radius-shell);
     box-shadow: var(--shadow-shell);
   }
-  .hero-art { padding-top: 3.25rem; }
-  .hero-art .cat { height: 146px; }
+  .hero-art { border-radius: var(--radius-shell) var(--radius-shell) 0 0; }
 }
