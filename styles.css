@@ -979,12 +979,19 @@ body.home {
   background: linear-gradient(180deg, #3F3F46 0%, #18181B 55%, #000000 100%);
   box-shadow: 0 30px 90px -20px rgba(29, 124, 80, 0.45),
               0 18px 50px -12px rgba(0, 0, 0, 0.45);
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  transition: box-shadow var(--dur) var(--ease);
+  animation: phone-float 5s ease-in-out infinite;
 }
 .phone:hover, .phone:focus-visible {
-  transform: translateY(-4px);
+  animation-play-state: paused;
   box-shadow: 0 40px 100px -20px rgba(29, 124, 80, 0.55),
               0 18px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes phone-float {
+  0%   { transform: translateY(0)     rotate(-1.4deg); }
+  50%  { transform: translateY(-12px) rotate(1.4deg);  }
+  100% { transform: translateY(0)     rotate(-1.4deg); }
 }
 
 /* Glass highlight across the bezel */
@@ -1072,6 +1079,7 @@ body.home {
 
 .phone-caption {
   margin-top: 0.875rem;
+  text-align: center;          /* the hero is left-aligned on desktop; this is not */
   font-family: var(--font-body);
   font-size: 0.75rem;
   color: var(--text-secondary);
@@ -1095,5 +1103,9 @@ body.home {
 .home-section { max-width: 34rem; margin-inline: auto; }
 
 @media (prefers-reduced-motion: reduce) {
-  .phone:hover, .phone:focus-visible { transform: none; }
+  .phone, .phone:hover, .phone:focus-visible {
+    animation: none;
+    transform: none;
+  }
+  .phone-hint { animation: none; }
 }
