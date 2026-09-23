@@ -4,26 +4,35 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
+<!-- ===========================================================================
+     SITE URL. Every absolute URL below uses it (canonical, og:url, og:image,
+     twitter:image). Meta tags have to be literal because social crawlers do
+     not run JavaScript, so this cannot live in app.js.
+     To move to a custom domain, run this once from the project folder:
+
+       sed -i '' 's#https://calico-website.vercel.app#https://yourdomain.com#g' index.html apply.html
+
+     =========================================================================== -->
 <title>Apply | Calico Websites</title>
-<meta name="description" content="Apply for a custom link in bio page. A few quick questions, about a minute." />
-<link rel="canonical" href="https://calicowebsites.com/apply" />
+<meta name="description" content="Custom link-in-bio pages and simple websites for creators and small businesses. I design it and set it up for you." />
+<link rel="canonical" href="https://calico-website.vercel.app/apply" />
 <meta name="theme-color" content="#DAF1E7" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Calico Websites" />
 <meta property="og:title" content="Apply | Calico Websites" />
-<meta property="og:description" content="Apply for a custom link in bio page. A few quick questions, about a minute." />
-<meta property="og:url" content="https://calicowebsites.com/apply" />
-<meta property="og:image" content="https://calicowebsites.com/images/og-image.jpg" />
+<meta property="og:description" content="Custom link-in-bio pages and simple websites for creators and small businesses. I design it and set it up for you." />
+<meta property="og:url" content="https://calico-website.vercel.app/apply" />
+<meta property="og:image" content="https://calico-website.vercel.app/images/og-image.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Calico Websites: your link in bio, but actually cute." />
+<meta property="og:image:alt" content="Calico Websites: custom link-in-bio pages and simple websites." />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Apply | Calico Websites" />
-<meta name="twitter:description" content="Apply for a custom link in bio page. A few quick questions, about a minute." />
-<meta name="twitter:image" content="https://calicowebsites.com/images/og-image.jpg" />
-<meta name="twitter:image:alt" content="Calico Websites: your link in bio, but actually cute." />
+<meta name="twitter:description" content="Custom link-in-bio pages and simple websites for creators and small businesses. I design it and set it up for you." />
+<meta name="twitter:image" content="https://calico-website.vercel.app/images/og-image.jpg" />
+<meta name="twitter:image:alt" content="Calico Websites: custom link-in-bio pages and simple websites." />
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -158,7 +167,7 @@
         <input class="pill-input" type="radio" name="budget" id="b-4" value="Not sure yet" />
         <label class="pill" for="b-4">Not sure yet</label>
       </div>
-      <p class="field-hint">Just a rough idea. It won&rsquo;t be held against you.</p>
+      <p class="field-hint">A rough range is fine.</p>
     </fieldset>
 
     <div class="field">
@@ -195,6 +204,13 @@
     <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
   </div>
   <div class="footer-meta">
+    <!-- EDIT THESE TWO. Replace the address and the handle with your own.
+         The mailto: and the href both need changing. -->
+    <p class="footer-contact">
+      <a href="mailto:hello@example.com">hello@example.com</a>
+      <span class="footer-dot" aria-hidden="true">&middot;</span>
+      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer">instagram.com/yourhandle</a>
+    </p>
     <p>&copy; <span class="footer-wordmark">Calico Websites</span> <span data-year>2026</span></p>
   </div>
 </footer>

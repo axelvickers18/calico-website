@@ -2,8 +2,8 @@
 
 Two pages, no frameworks, no build step:
 
-- `index.html` is the front page: cat, name, tagline, Apply button, My work,
-  How it works, footer. Deliberately short.
+- `index.html` is the front page: cat, name, tagline, Apply button, How it works,
+  Previous work, footer. Deliberately short.
 - `apply.html` is the application form, reached from either Apply button.
 - `styles.css` is shared by both. `app.js` handles the form, the year, and the
   scroll fade-in; it no-ops on any page without a form.
