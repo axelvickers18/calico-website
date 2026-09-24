@@ -85,11 +85,13 @@ switch to a different form service, add its origin to both in `vercel.json`.
 - `images/mckayla-228.jpg`: the Previous work thumbnail, a 228 x 304 crop from
   the top of a mckaylablanca.com screenshot. The frame shows 3:4 from the top,
   so crop to that and keep it small.
-- `images/mckayla-phone.jpg`: the full-length phone screenshot inside the
-  home page stencil. The stencil is a screenshot, not a live iframe, because
-  mckaylablanca.com refuses to be framed by other sites. Any phone-width
-  capture works; it fills the screen from the top. To show a different site,
-  swap this image and the stencil's `href` in `index.html`.
+- `images/mckayla-full.jpg`: the full-length screenshot that scrolls inside
+  the home page phone stencil. It is a screenshot, not a live iframe, because
+  mckaylablanca.com refuses to be framed by other sites. Capture a full-page
+  screenshot at a 390px-wide phone viewport at 2x (so 780px wide), after
+  scrolling to the bottom once so lazy images and fade-ins have loaded. To
+  show a different site, swap this image, its `width`/`height`/`alt`, and the
+  pill's `href` in `index.html`.
 - `images/og-image.jpg`: 1200 x 630 social share card. Regenerate it if the
   brand changes.
 

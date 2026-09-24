@@ -968,19 +968,6 @@ body.home {
   background: linear-gradient(180deg, #3F3F46 0%, #18181B 55%, #000000 100%);
   box-shadow: 0 30px 90px -20px rgba(29, 124, 80, 0.45),
               0 18px 50px -12px rgba(0, 0, 0, 0.45);
-  transition: box-shadow var(--dur) var(--ease);
-  animation: phone-float 5s ease-in-out infinite;
-}
-.phone:hover, .phone:focus-visible {
-  animation-play-state: paused;
-  box-shadow: 0 40px 100px -20px rgba(29, 124, 80, 0.55),
-              0 18px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-@keyframes phone-float {
-  0%   { transform: translateY(0)     rotate(-1.4deg); }
-  50%  { transform: translateY(-12px) rotate(1.4deg);  }
-  100% { transform: translateY(0)     rotate(-1.4deg); }
 }
 
 /* Glass highlight across the bezel */
@@ -995,8 +982,6 @@ body.home {
 }
 
 .phone-screen {
-  display: block;                  /* it is a <span>: without this, height is ignored */
-  position: relative;
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -1004,29 +989,35 @@ body.home {
   background-color: var(--shell);
 }
 
-/* A phone screenshot of the site, filling the screen from the top */
-.phone-screen img {
-  width: 100%;
+/* The screenshot scrolls itself down to the foot of the page and back up,
+   resting at each end. Travel = image height minus screen height, split
+   across two layers so it stays on the compositor with no JS measuring:
+   the wrapper is exactly screen-tall and moves down 100% (+ screen height),
+   the image moves up 100% of itself (- image height). Hover to pause. */
+.phone-scroll {
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  animation: screen-travel 36s ease-in-out infinite;
+}
+.phone-scroll img {
+  width: 100%;
+  height: auto;
+  animation: image-travel 36s ease-in-out infinite;
+}
+.phone:hover .phone-scroll,
+.phone:hover .phone-scroll img { animation-play-state: paused; }
+
+@keyframes screen-travel {
+  0%, 8%   { transform: translateY(0); }
+  46%, 54% { transform: translateY(100%); }
+  92%, 100% { transform: translateY(0); }
+}
+@keyframes image-travel {
+  0%, 8%   { transform: translateY(0); }
+  46%, 54% { transform: translateY(-100%); }
+  92%, 100% { transform: translateY(0); }
 }
 
-/* Soft shade at the foot of the screen so the hint never lands on top of
-   text. Neutral rather than mint, so it sits on any site's colours. */
-.phone-screen::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 120px;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.32) 100%);
-}
-
-/* Sits over the lower screen so the stencil reads as a control, not a picture */
+/* Floats over the lower screen: the way out to the live site */
 .phone-hint {
   position: absolute;
   left: 50%;
@@ -1049,19 +1040,13 @@ body.home {
   color: var(--primary-strong);
   white-space: nowrap;
   transform: translateX(-50%);
-  animation: hint-bob 2.8s var(--ease) infinite;
   transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-.phone:hover .phone-hint,
-.phone:focus-visible .phone-hint {
+.phone-hint:hover,
+.phone-hint:focus-visible {
   background-color: var(--primary);
   border-color: var(--primary);
   color: var(--on-primary);
-}
-
-@keyframes hint-bob {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%      { transform: translateX(-50%) translateY(-4px); }
 }
 
 .phone-caption {
@@ -1089,10 +1074,11 @@ body.home {
 /* The sections below the hero sit in a readable column, not the full width */
 .home-section { max-width: 34rem; margin-inline: auto; }
 
+/* No self-scrolling for people who ask for less motion. They get the same
+   page as a screen they can scroll themselves. */
 @media (prefers-reduced-motion: reduce) {
-  .phone, .phone:hover, .phone:focus-visible {
-    animation: none;
-    transform: none;
-  }
-  .phone-hint { animation: none; }
+  .phone-scroll, .phone-scroll img { animation: none; }
+  .phone-scroll { height: auto; }
+  .phone-screen { overflow-y: auto; scrollbar-width: none; }
+  .phone-screen::-webkit-scrollbar { display: none; }
 }
