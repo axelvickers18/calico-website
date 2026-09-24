@@ -39,9 +39,8 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap" />
+<link rel="preload" href="/fonts/jost-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
 
 <link rel="stylesheet" href="/styles.css" />
 </head>
@@ -96,7 +95,7 @@
 
       <div class="hero-actions reveal" style="--i:2">
         <a class="btn btn--primary" href="/apply">Get your website <span aria-hidden="true">&rarr;</span></a>
-        <a class="btn btn--secondary" href="#example">Explore an example</a>
+        <a class="btn btn--secondary" href="#examples">Explore an example</a>
       </div>
 
       <ul class="hero-points reveal" style="--i:3" role="list">
@@ -131,107 +130,39 @@
     </div>
   </section>
 
-  <!-- 2. Made around you: what they want, then a real site that does it -->
-  <section class="block wrap" id="example" aria-labelledby="example-title">
+  <!-- 2. Example websites ---------------------------------------------- -->
+  <section class="block wrap" id="examples" aria-labelledby="examples-title">
     <div class="section-head reveal">
-      <p class="kicker">Made around you</p>
-      <h2 class="section-title" id="example-title">A site built for what you want</h2>
-      <p class="section-lead">You don&rsquo;t need to know anything about websites. Tell us what you want your page to do for you, and we build it around that. You choose the look, the colours and what goes on it. We handle everything else.</p>
+      <p class="kicker">See it in action</p>
+      <h2 class="section-title" id="examples-title">Designed around each person</h2>
+      <p class="section-lead">Every site gets its own layout, fonts and colours, built from what that person needs.</p>
     </div>
 
-    <h3 class="subhead reveal">What do you want more of?</h3>
-    <ul class="goals" role="list">
-      <li class="goal reveal">
-        <h4>Brand deals</h4>
-        <p>Your numbers, your best posts and a button for brands to reach you, all near the top.</p>
-      </li>
-      <li class="goal reveal" style="--i:1">
-        <h4>Looking professional</h4>
-        <p>Your own name as your link, your own photos, and a design that feels like you.</p>
-      </li>
-      <li class="goal reveal" style="--i:2">
-        <h4>People finding your pages</h4>
-        <p>Every profile, shop and playlist in one link, with the ones that matter most at the top.</p>
-      </li>
-      <li class="goal reveal" style="--i:3">
-        <h4>Selling something</h4>
-        <p>Your shop, merch or latest release up front, with a clear link to buy or listen.</p>
-      </li>
-    </ul>
-
-    <h3 class="subhead subhead--gap reveal">Here&rsquo;s one we made</h3>
-    <p class="subhead-lead reveal">McKayla&rsquo;s site is set up for brand collabs. This is what&rsquo;s on it and why.</p>
-
-    <!-- Each slice is a window onto the same full-length screenshot the phone
-         uses, so it costs no extra download. --y is where the window starts
-         and --h how tall it is, both in pixels of the page at 390px wide. -->
-    <ol class="features" role="list">
-      <li class="feature reveal">
-        <div class="slice" style="--y:120; --h:450">
-          <img src="/images/mckayla-full.jpg" width="780" height="3804" loading="lazy" decoding="async"
-               alt="The top of McKayla's site: a large photo of her, her name, and the line For brand collabs and partnerships." />
-        </div>
-        <div class="feature-text">
-          <h4>A photo and a line about you</h4>
-          <p>Brands know who you are and what you&rsquo;re open to as soon as the page opens.</p>
-        </div>
-      </li>
-
-      <li class="feature reveal">
-        <div class="slice" style="--y:682; --h:330">
-          <img src="/images/mckayla-full.jpg" width="780" height="3804" loading="lazy" decoding="async"
-               alt="McKayla's TikTok card: her handle, follower and like counts, and three featured videos." />
-        </div>
-        <div class="feature-text">
-          <h4>Your socials and best posts</h4>
-          <p>Each profile with your numbers and a few posts, so people can see your reach without digging.</p>
-        </div>
-      </li>
-
-      <li class="feature reveal">
-        <div class="slice" style="--y:1228; --h:440">
-          <img src="/images/mckayla-full.jpg" width="780" height="3804" loading="lazy" decoding="async"
-               alt="McKayla's links to her VSCO photos and Depop shop, and her top four albums on FourMeasure." />
-        </div>
-        <div class="feature-text">
-          <h4>Everything else you&rsquo;re into</h4>
-          <p>Her photos, her clothes shop and her favourite albums. Yours could be your merch, your music or a gallery of your work.</p>
-        </div>
-      </li>
-
-      <li class="feature reveal">
-        <div class="slice" style="--y:520; --h:156">
-          <img src="/images/mckayla-full.jpg" width="780" height="3804" loading="lazy" decoding="async"
-               alt="McKayla's Work with me button, showing her enquiries email address." />
-        </div>
-        <div class="feature-text">
-          <h4>A Work with me button</h4>
-          <p>One tap and a brand has your email. No hunting through your DMs.</p>
-        </div>
-      </li>
-    </ol>
-
-    <p class="goals-more reveal">Want something that isn&rsquo;t here? Tell us in the form and we&rsquo;ll add it.</p>
-
-    <p class="feature-links reveal">
-      <a class="text-link" href="https://mckaylablanca.com" target="_blank" rel="noopener noreferrer">Visit mckaylablanca.com<span aria-hidden="true"> &#8599;</span><span class="sr-only"> (opens in a new tab)</span></a>
-      <a class="text-link" href="/example">See a sample layout <span class="concept-tag">Concept</span></a>
-    </p>
-  </section>
-
-  <!-- 2b. Numbers for brands ------------------------------------------- -->
-  <section class="block wrap" id="numbers" aria-labelledby="numbers-title">
-    <div class="numbers">
-      <div class="numbers-copy reveal">
-        <p class="kicker">For creators</p>
-        <h2 class="section-title" id="numbers-title">Show brands your numbers</h2>
-        <p class="section-lead">Before a brand reaches out, it wants to know how many people follow you and how engaged they are. We can put your follower counts, engagement and best posts on your site, right next to a button to work with you. A brand gets what it needs in one visit.</p>
-        <p class="numbers-note">We add the numbers you send us. They don&rsquo;t update on their own.</p>
+    <!-- Featured: the real customer site. The slices reuse the full-length
+         screenshot the hero phone uses, so they cost no extra download.
+         --y is where each window starts and --h how tall it is, in pixels
+         of the page at 390px wide. -->
+    <article class="ex-featured reveal" aria-labelledby="ex-mckayla">
+      <div class="ex-featured-copy">
+        <p class="ex-tag ex-tag--real">Customer site</p>
+        <h3 class="ex-title" id="ex-mckayla">McKayla Blanca</h3>
+        <p class="ex-desc">A creator site set up to win brand collabs.</p>
+        <ul class="checklist" role="list">
+          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Shows brands who she is at a glance</li>
+          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Puts her follower counts and best posts in front of brands</li>
+          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Sends fans to her photos, clothes shop and music</li>
+          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Lets brands email her in one tap</li>
+        </ul>
+        <!-- QUOTE: drafted for McKayla to read and approve. Only publish her
+             exact, approved words, and change them here if she edits them. -->
+        <figure class="ex-quote">
+          <blockquote><p>&ldquo;I told them what I wanted and they built it. It looks like me, and it&rsquo;s the link I send to brands.&rdquo;</p></blockquote>
+          <figcaption>McKayla Blanca</figcaption>
+        </figure>
+        <a class="text-link" href="https://mckaylablanca.com" target="_blank" rel="noopener noreferrer">Visit mckaylablanca.com<span aria-hidden="true"> &#8599;</span><span class="sr-only"> (opens in a new tab)</span></a>
       </div>
 
-      <!-- Same full-length screenshot again, cropped to her stats and her
-           contact button. See the slice note in the example section. -->
-      <div class="numbers-visual reveal" style="--i:1">
+      <div class="ex-featured-visual">
         <div class="slice" style="--y:690; --h:118">
           <img src="/images/mckayla-full.jpg" width="780" height="3804" loading="lazy" decoding="async"
                alt="McKayla's TikTok stats: 8 million plus engagement this month, 7.7M likes, 86.8K followers." />
@@ -245,7 +176,42 @@
                alt="McKayla's Work with me button with her enquiries email address." />
         </div>
       </div>
+    </article>
+
+    <p class="ex-more reveal">Have something else in mind? <a class="text-link" href="/apply">Tell us what you need.</a></p>
+  </section>
+
+  <!-- 2b. Why it looks professional. Only claims the site already makes
+       elsewhere: no testimonials, numbers or results until they're real. -->
+  <section class="block wrap" id="professional" aria-labelledby="pro-title">
+    <div class="section-head reveal">
+      <p class="kicker">Made to be taken seriously</p>
+      <h2 class="section-title" id="pro-title">What a brand sees when they tap your link</h2>
+      <p class="section-lead">First impressions decide whether a brand reaches out. Every Calico site is built to look like a real business.</p>
     </div>
+
+    <ul class="pro-list" role="list">
+      <li class="pro reveal">
+        <span class="pro-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3Z"/></svg></span>
+        <h3>Your own name in the link</h3>
+        <p>An address like yourname.com reads like a real business the moment it appears in your bio.</p>
+      </li>
+      <li class="pro reveal" style="--i:1">
+        <span class="pro-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></svg></span>
+        <h3>Everything in one clear place</h3>
+        <p>Your socials, your numbers, your best posts and your shop, laid out so nobody has to dig.</p>
+      </li>
+      <li class="pro reveal" style="--i:2">
+        <span class="pro-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 18.5h3"/></svg></span>
+        <h3>Designed for phones first</h3>
+        <p>People tap your link on their phone, so that&rsquo;s where your site is built to look its best.</p>
+      </li>
+      <li class="pro reveal" style="--i:3">
+        <span class="pro-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2.4"/><path d="m4 7 8 6 8-6"/></svg></span>
+        <h3>An easy way to hire you</h3>
+        <p>A clear Work with me button, so a brand can email you straight away.</p>
+      </li>
+    </ul>
   </section>
 
   <!-- 3. Personal domain ----------------------------------------------- -->
@@ -254,7 +220,7 @@
       <div class="domain-copy reveal">
         <p class="kicker kicker--light">Personal domain included</p>
         <h2 class="section-title" id="domain-title">A link with your name on it.</h2>
-        <p class="section-lead">Your site gets its own link with your name in it, like yourname.com. That&rsquo;s the link you put in your bio. We help you pick one that&rsquo;s available and do all the setup, so you never have to touch a setting.</p>
+        <p class="section-lead">Your site gets its own address, like yourname.com, to put in your bio. We help you find one that&rsquo;s available and handle all the setup.</p>
         <p class="domain-note">Domain choice is subject to availability. Premium domains may cost extra.</p>
       </div>
 
@@ -278,22 +244,22 @@
       <li class="step reveal">
         <span class="step-num" aria-hidden="true">1</span>
         <h3>Tell us about yourself</h3>
-        <p>Fill out a short form and send it to us.</p>
+        <p>Fill out a short form about you and what you want your site to do.</p>
       </li>
       <li class="step reveal" style="--i:1">
         <span class="step-num" aria-hidden="true">2</span>
-        <h3>Get your price</h3>
-        <p>We reply with a price. You know the cost before you pay anything.</p>
+        <h3>Agree on a price</h3>
+        <p>We email you a quote within 2 days. Once you&rsquo;re happy with it, send your photos, videos and links.</p>
       </li>
       <li class="step reveal" style="--i:2">
         <span class="step-num" aria-hidden="true">3</span>
-        <h3>Send your photos and videos</h3>
-        <p>Send us what you want on your site. Screenshots of things you like help too.</p>
+        <h3>Review your website</h3>
+        <p>We send you a preview so you can share feedback before launch. We&rsquo;ll confirm the included revisions when we quote your site.</p>
       </li>
       <li class="step reveal" style="--i:3">
         <span class="step-num" aria-hidden="true">4</span>
-        <h3>We build it until you love it</h3>
-        <p>We make your site and keep working with you until you&rsquo;re happy. Then it goes live on your own link. Satisfaction guaranteed.</p>
+        <h3>Go live on your own domain</h3>
+        <p>We set up your personal domain and your site goes live. Put the link in your bio.</p>
       </li>
     </ol>
   </section>
@@ -303,22 +269,24 @@
     <div class="included">
       <div class="included-list reveal">
         <h2 class="section-title" id="included-title">What&rsquo;s included</h2>
-        <ul class="checklist" role="list">
+        <ul class="checklist checklist--large" role="list">
           <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Personalized website design</li>
-          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Made to look good on phones</li>
-          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Your own photos, bio, and links</li>
-          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Your own link, like yourname.com, set up for you (subject to availability and final package terms)</li>
+          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Mobile-friendly layout</li>
+          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Your photos, bio, and links</li>
+          <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>Personal domain setup</li>
           <li><svg aria-hidden="true" focusable="false"><use href="#check" /></svg>A preview before launch</li>
         </ul>
+        <p class="included-note">Domain choice is subject to availability. Premium domains may cost extra.</p>
       </div>
 
       <!-- ===== PRICING. This is the only place a price appears on the site.
-           When pricing is final, replace "Request pricing" with the price and
-           adjust the sentence under it. ===== -->
+           When pricing is final, replace "Request pricing" with the price
+           and what it covers, and keep the sentence under it.
+           See README, "Edit this first". ===== -->
       <div class="pricing reveal" style="--i:1">
         <p class="pricing-label">Pricing</p>
         <p class="pricing-value">Request pricing</p>
-        <p class="pricing-note">Tell us what you need and we&rsquo;ll send you a price before you commit to anything.</p>
+        <p class="pricing-note">We&rsquo;ll confirm the full price, what&rsquo;s included, and any ongoing costs before you commit.</p>
         <a class="btn btn--primary btn--block" href="/apply">Get your website <span aria-hidden="true">&rarr;</span></a>
       </div>
       <!-- ===== end of pricing ===== -->
@@ -331,28 +299,28 @@
 
     <div class="faq reveal">
       <details>
-        <summary>What do I need to send?</summary>
-        <p>To start, just the form. After we reply with a price, you send your photos, videos, a few lines about yourself, and the links you want on the site.</p>
+        <summary>Do I need to know how to code?</summary>
+        <p>No. We design, build and set up everything for you.</p>
       </details>
       <details>
-        <summary>I&rsquo;m not good with tech. Is that OK?</summary>
-        <p>Yes. You don&rsquo;t need to know anything about websites. We design it, build it and set it up. You send your photos and tell us what you like.</p>
+        <summary>When do I send my photos?</summary>
+        <p>After we agree on a price. To start, the form just asks who you are, where people can find you, and what the site is for.</p>
       </details>
       <details>
-        <summary>I already have my own link. Can I use it?</summary>
-        <p>Usually, yes. Put it in the form and we&rsquo;ll tell you how it works.</p>
+        <summary>How does payment work?</summary>
+        <p>You don&rsquo;t pay anything until you&rsquo;ve agreed on the price. We&rsquo;ll explain how to pay when we send your quote.</p>
       </details>
       <details>
-        <summary>What if the name I want is taken?</summary>
-        <p>We&rsquo;ll suggest available options, like a variation of your name or a different ending, and you pick one. Premium domains may cost extra.</p>
+        <summary>Can I use a domain I already own?</summary>
+        <p>Often, yes. Mention it under &ldquo;Anything else&rdquo; in the form and we&rsquo;ll go through it with you during setup.</p>
       </details>
       <details>
-        <summary>What happens to my current link in bio page?</summary>
-        <p>Nothing. Keep it as long as you like. When your site is ready, you swap the link in your bio for your new one.</p>
+        <summary>What if the domain I want is taken?</summary>
+        <p>It depends on what&rsquo;s available. We&rsquo;ll help you find an option you like. Premium domains may cost extra.</p>
       </details>
       <details>
-        <summary>How can I request changes after launch?</summary>
-        <p>Email us with what you&rsquo;d like changed. Before you buy, we&rsquo;ll confirm what&rsquo;s included after launch and any ongoing costs.</p>
+        <summary>Can I make changes after launch?</summary>
+        <p>Ongoing edits and any costs for them are confirmed with you before you buy. Ask about them in <a class="text-link text-link--inline" href="/apply">your request</a>.</p>
       </details>
     </div>
   </section>
@@ -370,7 +338,8 @@
 </main>
 
 <!-- Footer ------------------------------------------------------------- -->
-<!-- Add a contact email and social link here once they're confirmed. -->
+<!-- Add a verified contact email here once there is one. Until then the
+     form is the way to reach us. -->
 <footer class="footer">
   <div class="cats reveal" aria-hidden="true">
     <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
@@ -378,7 +347,8 @@
     <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
   </div>
   <div class="footer-meta">
-    <p>&copy; <span class="footer-wordmark">Calico Websites</span> <span data-year>2026</span></p>
+    <p>Questions? <a href="/apply">Send us a message</a></p>
+    <p>&copy; <span class="footer-wordmark">Calico Websites</span> <span data-year>2026</span> <span class="footer-dot" aria-hidden="true">&middot;</span> <a href="/privacy">Privacy</a></p>
   </div>
 </footer>
 

@@ -37,9 +37,8 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap" />
+<link rel="preload" href="/fonts/jost-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
 
 <link rel="stylesheet" href="/styles.css" />
 </head>
@@ -80,7 +79,7 @@
   </div>
 
   <h1 class="apply-title reveal" style="--i:1">Get your website</h1>
-  <p class="apply-lead reveal" style="--i:2">A few questions to start. We&rsquo;ll reply by email with a price.</p>
+  <p class="apply-lead reveal" style="--i:2">A few questions to start. We&rsquo;ll email you a quote within 2 days.</p>
 
   <!-- The action below is the fallback for visitors with JavaScript off.
        With JS on, app.js posts to CONFIG.form.endpoint instead and keeps
@@ -100,11 +99,37 @@
              inputmode="email" placeholder="Where we&rsquo;ll send your preview" />
     </div>
 
-    <div class="field">
-      <label for="f-social">Instagram or main social link</label>
-      <input id="f-social" name="social" type="text" required autocomplete="url"
-             autocapitalize="none" spellcheck="false" placeholder="@yourname or a link" />
-    </div>
+    <!-- Tick a platform and a box opens for the handle (CSS :has, plus app.js,
+         which also requires at least one platform and a handle for each) -->
+    <fieldset class="field choices" data-socials>
+      <legend>Where can people find you?</legend>
+      <div class="pill-row">
+        <input class="pill-input" type="checkbox" name="platforms" id="s-instagram" value="Instagram" data-social-toggle="instagram" />
+        <label class="pill" for="s-instagram">Instagram</label>
+
+        <input class="pill-input" type="checkbox" name="platforms" id="s-tiktok" value="TikTok" data-social-toggle="tiktok" />
+        <label class="pill" for="s-tiktok">TikTok</label>
+
+        <input class="pill-input" type="checkbox" name="platforms" id="s-youtube" value="YouTube" data-social-toggle="youtube" />
+        <label class="pill" for="s-youtube">YouTube</label>
+      </div>
+      <p class="field-hint">Pick at least one.</p>
+      <div class="social-field" data-social-field="instagram">
+        <label for="f-instagram">Your Instagram</label>
+        <input id="f-instagram" name="instagram" type="text" autocapitalize="none" spellcheck="false"
+               placeholder="@yourname" />
+      </div>
+      <div class="social-field" data-social-field="tiktok">
+        <label for="f-tiktok">Your TikTok</label>
+        <input id="f-tiktok" name="tiktok" type="text" autocapitalize="none" spellcheck="false"
+               placeholder="@yourname" />
+      </div>
+      <div class="social-field" data-social-field="youtube">
+        <label for="f-youtube">Your YouTube</label>
+        <input id="f-youtube" name="youtube" type="text" autocapitalize="none" spellcheck="false"
+               placeholder="@yourchannel or a link" />
+      </div>
+    </fieldset>
 
     <fieldset class="field choices">
       <legend>What&rsquo;s the website for?</legend>
@@ -131,22 +156,9 @@
     </fieldset>
 
     <div class="field">
-      <label for="f-goal">What are you working toward? <span class="optional">(optional)</span></label>
-      <input id="f-goal" name="goal" type="text"
+      <label for="f-priority">What&rsquo;s your priority? <span class="optional">(optional)</span></label>
+      <input id="f-priority" name="priority" type="text"
              placeholder="More brand deals, selling your art, booking shows" />
-    </div>
-
-    <div class="field">
-      <label for="f-domain">The link you&rsquo;d like <span class="optional">(optional)</span></label>
-      <input id="f-domain" name="preferred_domain" type="text"
-             autocapitalize="none" spellcheck="false" placeholder="yourname.com" />
-      <p class="field-hint">Just an idea is fine. We&rsquo;ll check what&rsquo;s available with you.</p>
-    </div>
-
-    <div class="field">
-      <label for="f-existing">A link you already own <span class="optional">(optional)</span></label>
-      <input id="f-existing" name="existing_domain" type="text"
-             autocapitalize="none" spellcheck="false" placeholder="Only if you have one, like yourname.com" />
     </div>
 
     <div class="field">
@@ -168,17 +180,19 @@
 
     <button class="submit" type="submit">
       <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
-      <span>Send request</span>
+      <span>Get my quote</span>
     </button>
 
     <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+
+    <p class="form-privacy">We only use your details to reply to you and build your site. <a href="/privacy">Privacy</a></p>
   </form>
 
   <!-- Swapped in for the form once it sends -->
   <div class="form-done reveal" data-form-done hidden tabindex="-1">
     <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
-    <p class="done-title">Request sent!</p>
-    <p class="done-sub">Thanks. We&rsquo;ll be in touch by email.</p>
+    <p class="done-title">Thanks, we&rsquo;ve got it!</p>
+    <p class="done-sub">We&rsquo;ll email you a quote within 2 days.</p>
   </div>
 
 </main>
@@ -192,7 +206,7 @@
     <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
   </div>
   <div class="footer-meta">
-    <p>&copy; <span class="footer-wordmark">Calico Websites</span> <span data-year>2026</span></p>
+    <p>&copy; <span class="footer-wordmark">Calico Websites</span> <span data-year>2026</span> <span class="footer-dot" aria-hidden="true">&middot;</span> <a href="/privacy">Privacy</a></p>
   </div>
 </footer>
 </div>

@@ -23,7 +23,8 @@ var CONFIG = {
     messages: {
       notConnected: 'The form isn’t switched on yet. Try again soon.',   /* only shown if the endpoint above is cleared */
       sending: 'Sending…',
-      error: 'That didn’t send. Check your connection and tap Send again.'
+      pickSocial: 'Pick at least one: Instagram, TikTok or YouTube.',
+      error: 'That didn’t send. Check your connection and try again.'
     }
   },
 
@@ -81,6 +82,7 @@ var CONFIG = {
         var open = otherRadio.checked;
         otherBox.classList.toggle('is-open', open);
         otherInput.disabled = !open;
+        otherInput.required = open;
         if (open && moveFocus) otherInput.focus();
       };
       var whats = form.querySelectorAll('input[name="what"]');
@@ -91,11 +93,39 @@ var CONFIG = {
       syncOther(false);
     }
 
+    /* Instagram, TikTok, YouTube: ticking one opens a box for the handle,
+       which is then required. At least one platform must be ticked; HTML
+       can't require "one of these checkboxes", so the first one carries
+       the message until something is picked. */
+    var socialToggles = form.querySelectorAll('[data-social-toggle]');
+    if (socialToggles.length) {
+      var syncSocials = function (changed) {
+        var any = false;
+        for (var i = 0; i < socialToggles.length; i++) {
+          var toggle = socialToggles[i];
+          var box = form.querySelector('[data-social-field="' + toggle.getAttribute('data-social-toggle') + '"]');
+          var input = box && box.querySelector('input');
+          if (toggle.checked) any = true;
+          if (!box || !input) continue;
+          box.classList.toggle('is-open', toggle.checked);
+          input.disabled = !toggle.checked;
+          input.required = toggle.checked;
+          if (toggle === changed && toggle.checked) input.focus();
+        }
+        socialToggles[0].setCustomValidity(any ? '' : CONFIG.form.messages.pickSocial);
+      };
+      for (var t = 0; t < socialToggles.length; t++) {
+        socialToggles[t].addEventListener('change', function (event) { syncSocials(event.target); });
+      }
+      form.addEventListener('reset', function () { setTimeout(function () { syncSocials(null); }, 0); });
+      syncSocials(null);
+    }
+
     /* Swap the form for the thank-you panel, and move focus to it so it is
        announced rather than silently replacing what was on screen. */
     function showDone() {
       if (!done) {
-        say('Request sent! We’ll be in touch by email.', 'success');
+        say('Thanks, we’ve got it! We’ll email you a quote within 2 days.', 'success');
         return;
       }
       form.hidden = true;
