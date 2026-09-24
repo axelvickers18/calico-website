@@ -55,8 +55,7 @@ var CONFIG = {
      Application form
      ----------------------------------------------------------------------- */
   function endpointIsLive() {
-    var url = CONFIG.form.endpoint || '';
-    return url.indexOf('formspree.io/f/') > -1 && url.indexOf('YOUR_FORM_ID') === -1;
+    return /^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(CONFIG.form.endpoint || '');
   }
 
   function setupForm() {
@@ -115,12 +114,23 @@ var CONFIG = {
         body: new window.FormData(form),
         headers: { 'Accept': 'application/json' }
       }).then(function (response) {
-        if (!response.ok) throw new Error('Request failed: ' + response.status);
-        form.reset();
-        say('');
-        showDone();
-      }).catch(function () {
-        say(CONFIG.form.messages.error, 'error');
+        if (response.ok) {
+          form.reset();
+          say('');
+          showDone();
+          return;
+        }
+
+        /* Formspree explains rejections (a bad email, spam filtering) in an
+           errors array. Pass that on rather than blaming their connection. */
+        return response.json().catch(function () { return {}; }).then(function (data) {
+          var reasons = (data && data.errors) || [];
+          var err = new Error(reasons.map(function (e) { return e.message; }).join(' '));
+          err.fromServer = true;
+          throw err;
+        });
+      }).catch(function (err) {
+        say((err && err.fromServer && err.message) || CONFIG.form.messages.error, 'error');
         form.removeAttribute('aria-busy');
         if (status) status.focus();
       });

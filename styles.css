@@ -1,6 +1,6 @@
 /* ==========================================================================
    Calico Websites
-   Shared by index.html and apply.html.
+   Shared by index.html, apply.html and example.html.
    Layout and card system modelled on mckaylablanca.com, recoloured green.
    Type follows fourmeasure.com: Jost for display, Inter for the small print.
    Every colour and font is a variable at the top.
@@ -29,11 +29,11 @@
   --fg: #18181B;
   --text-strong: #000000;
   --text-secondary: #52525B;
-  --text-muted: #71717A;
+  --text-muted: #63636B;       /* 5.03:1 on the column, so it passes off the cards too */
   --border: #DBE6E1;
 
   --primary: #1D7C50;          /* 5.18:1 with white */
-  --primary-strong: #196B48;   /* 6.23:1 on the column */
+  --primary-strong: #196B48;   /* 5.47:1 on the column */
   --primary-soft: #59C08C;
   --primary-pale: #A7DCC2;
   --primary-dark: #18392C;
@@ -41,11 +41,6 @@
 
   --focus: #196B48;
   --error: #B42318;
-
-  /* Calico patch tones. Swap these to re-coat the cats */
-  --patch-a: #A7DCC2;
-  --patch-b: #59C08C;
-  --patch-c: #DAF1E7;
 
   /* Shape */
   --radius-pill: 999px;
@@ -144,8 +139,8 @@ p { margin: 0; }
 
 /* --------------------------------------------------------------------------
    The calico cats
-   One <symbol> in the defs block, re-used everywhere. Patch colours come
-   from --patch-a/b/c, so any instance can wear a different coat.
+   One <symbol> in the defs block, re-used everywhere. It is a plain outline
+   in currentColor, so set `color` on any instance to recolour it.
    -------------------------------------------------------------------------- */
 .cat-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
@@ -155,12 +150,6 @@ p { margin: 0; }
   color: var(--primary);       /* the outline */
   overflow: visible;
 }
-
-/* The logo is the plain outline cat. The coat only shows on the footer trio. */
-.hero-art .cat,
-.link-icon .cat,
-.submit .cat,
-.form-done .cat { --coat-opacity: 0; }
 
 /* Hero panel: breaks out of the column gutters, fades into the page at the
    bottom so the name sits in the tail of the fade. */
@@ -199,7 +188,6 @@ p { margin: 0; }
   height: 46%;
   margin-bottom: 8%;
   color: var(--primary-dark);           /* reads against the mid-green panel */
-  --coat-opacity: 0;
 }
 
 /* Wave on hover, lifted straight from her credit-cat wiggle */
@@ -498,13 +486,16 @@ p { margin: 0; }
   color: var(--text-secondary);
 }
 .back-link:hover { color: var(--primary-strong); }
+/* .shell > * stretches every child; keep the tap area to the link itself */
+.shell > .back-link { width: auto; align-self: flex-start; }
 
 .apply-art {
   display: flex;
   justify-content: center;
   margin-bottom: 0.75rem;
 }
-.apply-art .cat { height: 72px; --coat-opacity: 0; }
+.apply-art .cat { height: 72px; }
+.notfound-art { margin-top: 3rem; }   /* 404.html has no back link above it */
 
 .field-hint {
   margin-top: 0.25rem;
@@ -729,8 +720,8 @@ p { margin: 0; }
   align-items: flex-end;
   gap: 6px;
 }
-/* Plain outline, same as the logo. No coats down here. */
-.cats .cat { height: 54px; --coat-opacity: 0; }
+/* Plain outlines, same as the logo */
+.cats .cat { height: 54px; }
 .cats .cat:nth-child(1) { height: 44px; }
 .cats .cat:nth-child(3) { height: 40px; transform: scaleX(-1); }
 .cats .cat:nth-child(2):hover { animation: wiggle 620ms var(--ease); }
@@ -913,7 +904,7 @@ p { margin: 0; }
   background: linear-gradient(160deg, var(--primary-soft) 0%, var(--primary-pale) 100%);
   border: 1px solid var(--card-edge);
 }
-.thumb .cat { height: 52%; color: var(--primary-dark); --coat-opacity: 0; }
+.thumb .cat { height: 52%; color: var(--primary-dark); }
 .thumb:nth-child(2) { background: linear-gradient(160deg, var(--primary-pale) 0%, var(--accent) 100%); }
 .thumb:nth-child(3) { background: linear-gradient(160deg, var(--accent) 0%, var(--primary-soft) 100%); }
 
@@ -961,15 +952,13 @@ body.home {
   justify-content: center;
   margin-bottom: 1rem;
 }
-.hero-logo .cat { height: 84px; --coat-opacity: 0; }
+.hero-logo .cat { height: 84px; }
 
 /* The stencil. Proportions follow a standard handset: 320 x 681. */
 .phone {
   position: relative;
   display: block;
   width: 300px;
-  --screen-w: 288px;
-  --screen-scale: 0.7384;          /* 288 / 390, the width the page renders at */
   max-width: 100%;
   margin-inline: auto;
   aspect-ratio: 320 / 681;
@@ -1015,18 +1004,16 @@ body.home {
   background-color: var(--shell);
 }
 
-/* The example page renders at phone width, then scales down to fit the screen */
-.phone-screen iframe {
-  width: 390px;
-  height: 900px;
-  border: 0;
-  display: block;
-  transform-origin: top left;
-  transform: scale(var(--screen-scale));
-  pointer-events: none;            /* the whole stencil is the link */
+/* A phone screenshot of the site, filling the screen from the top */
+.phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
-/* Soft fade at the foot of the screen so the hint never lands on top of text */
+/* Soft shade at the foot of the screen so the hint never lands on top of
+   text. Neutral rather than mint, so it sits on any site's colours. */
 .phone-screen::after {
   content: "";
   position: absolute;
@@ -1036,7 +1023,7 @@ body.home {
   height: 120px;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(218, 241, 231, 0) 0%, rgba(218, 241, 231, 0.92) 62%, var(--shell) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.32) 100%);
 }
 
 /* Sits over the lower screen so the stencil reads as a control, not a picture */
@@ -1096,7 +1083,7 @@ body.home {
   .hero-copy .name { font-size: clamp(3.25rem, 5vw, 4.25rem); }
   .hero-copy .tagline { margin-inline: 0; max-width: 26rem; }
   .hero-copy .link--cta { margin-inline: 0; }
-  .phone { width: 320px; --screen-w: 308px; --screen-scale: 0.7897; }
+  .phone { width: 320px; }
 }
 
 /* The sections below the hero sit in a readable column, not the full width */

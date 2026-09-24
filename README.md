@@ -1,108 +1,123 @@
 # Calico Websites
 
-Two pages, no frameworks, no build step:
+Three pages, no frameworks, no build step:
 
-- `index.html` is the front page: cat, name, tagline, Apply button, How it works,
-  Previous work, footer. Deliberately short.
-- `apply.html` is the application form, reached from either Apply button.
-- `styles.css` is shared by both. `app.js` handles the form, the year, and the
-  scroll fade-in; it no-ops on any page without a form.
+- `index.html` is the front page: a wide split hero (cat, name, tagline, Apply
+  button on the left, a phone stencil showing mckaylablanca.com on the right),
+  then How it works, Previous work, and the footer.
+- `apply.html` is the application form, reached from the Apply buttons.
+- `example.html` is a sample creator link-in-bio page with placeholder
+  content. Every card on it leads to `/apply`. It is `noindex`, and nothing
+  links to it at the moment.
+- `404.html` is served by Vercel for any missing path.
+- `styles.css` is shared by all of them. `app.js` handles the form, the year,
+  and the scroll fade-in; it no-ops on any page without a form.
 
-Modelled on mckaylablanca.com: one centered column at every width, full-bleed
-on phones, a rounded card floating on green from 560px up, with her link-row
-system (62px pills, icon + label + sub + meta), her card radius, her hover lift,
-and her `--i` reveal stagger. Type follows fourmeasure.com: Jost for display,
-Inter for the small print.
+The apply and example pages follow mckaylablanca.com: one centred column,
+full-bleed on phones, a rounded card floating on green from 560px up, with her
+link-row system (62px pills, icon + label + sub + meta), her card radius, her
+hover lift, and her `--i` reveal stagger. The home page overrides that with
+`body.home` for its wide layout, going two-column from 900px. Type follows
+fourmeasure.com: Jost for display, Inter for the small print.
 
 The form asks three pill questions: what they want, how soon, and an estimated
 budget. All three are radio buttons styled as tappable pills, with real inputs
 underneath, so they work with a keyboard and a screen reader and land in the
-Formspree email as `what`, `when` and `budget`.
-
-The budget ranges are placeholders. Edit the `<label>` text and the matching
-`value=""` on each input in the marked block in `apply.html`.
-
-The two "what do you want / how soon" questions are radio buttons styled as
-tappable pills, with real inputs underneath, so they work with a keyboard, with a
-screen reader, and land in the Formspree email as `what` and `when`.
+Formspree email as `what`, `when` and `budget`. To change the budget ranges,
+edit the `<label>` text and the matching `value=""` on each input in the
+marked block in `apply.html`.
 
 On a successful send the form hides itself and the thank-you panel takes its
-place; on a failure the form stays put and shows an error under the button.
+place. On a failure the form stays put and shows an error under the button:
+Formspree's own reason if it rejected the submission, otherwise a "check your
+connection" message.
 
 ## Edit this first
 
-Everything editable lives in the `CONFIG` object at the top of `app.js`:
-
 | What | Where |
 | --- | --- |
-| **Formspree endpoint** | `CONFIG.form.endpoint` |
-| Reply subject line | `CONFIG.form.subject` |
-| Form status messages | `CONFIG.form.messages` |
+| **Footer email and Instagram** | the marked `footer-contact` block in every `.html` file |
+| Formspree endpoint | `CONFIG.form.endpoint` in `app.js` **and** the form `action` in `apply.html` |
+| Reply subject line | `CONFIG.form.subject` in `app.js` |
+| Form status messages | `CONFIG.form.messages` in `app.js` |
 | Work cards | plain HTML in `index.html`. Copy the marked `<a class="work-card">` block |
 
-Section copy lives in `index.html` so it ships in the HTML for SEO and works
-with JavaScript off.
+Section copy lives in the HTML so it ships for SEO and works with JavaScript
+off.
 
-## Connecting the form
+## The form
 
-1. Make a form at <https://formspree.io> and copy the endpoint
-   (`https://formspree.io/f/xxxxxxxx`).
-2. Paste it into `CONFIG.form.endpoint` in `app.js`, replacing
-   `PASTE_FORMSPREE_ENDPOINT_HERE`.
-3. Optionally paste it into the `<form action="…">` in `index.html` too. That
-   attribute is only the fallback path for visitors with JavaScript disabled.
+The form is connected to Formspree (`https://formspree.io/f/xvkgryrv`). With
+JS on, it submits over `fetch` and stays on the page, with messages in the live
+region under the button. With JS off, the browser posts to the form's `action`
+and Formspree shows its own thank-you page. That is why the endpoint lives in
+two places; keep them in step.
 
-Until step 2 is done the form intercepts the submit and tells people it isn't
-connected yet, rather than posting into a dead URL.
+If `CONFIG.form.endpoint` is ever cleared or not a Formspree URL, the form
+intercepts the submit and says it isn't switched on, rather than posting into
+a dead URL.
 
-With JS on, it submits over `fetch` and stays on the page (success and error
-messages go into the live region under the button). With JS off, the browser
-posts normally and Formspree shows its own thank-you page.
-
-Formspree is already allowed in the CSP (`form-action` and `connect-src`). If
-you switch to a different form service, add its origin to both in
-`vercel.json`.
+Formspree is allowed in the CSP (`form-action` and `connect-src`). If you
+switch to a different form service, add its origin to both in `vercel.json`.
 
 ## Brand
 
 - **The calico**: one `<symbol id="calico">` in the defs block at the top of
-  `<body>`, re-used everywhere via `<use href="#calico">`: the hero, the Apply
-  row, each work card, the submit button, and the three in the footer.
-  - The outline draws in `currentColor` (green from `--primary`).
-  - The coat is three patch colours, `--patch-a`, `--patch-b`, `--patch-c`.
-    Set them on any instance to give that cat a different coat; the footer trio
-    does exactly this via `.cats .cat:nth-child(n)`.
-  - `--coat-opacity: 0` drops the coat and leaves the outline, which is what the
-    24-26px icons use. The patches turn to mush at that size.
-  - Hovering the hero cat, the Apply row, or the submit button runs her
-    `credit-wiggle` animation (disabled under reduced motion and on touch).
-- **Colors**: every value is a CSS variable in `:root` at the top of the
-  `<style>` block. The greens are `--primary` `#1D7C50`, `--primary-strong`
-  `#196B48`, `--primary-soft` `#59C08C`, page field `--page-bg` `#DAF1E7`,
-  column `--shell-bg` `#F8FBFA`. All of these clear WCAG AA. White on
-  `--primary` is 5.18:1, link green on the column is 6.23:1. Swap the hues and
-  re-check contrast before shipping.
+  each page's `<body>`, re-used everywhere via `<use href="#calico">`: the hero,
+  the Apply row, the example thumbnails, the submit button, the thank-you
+  panel, and the three in the footer. It is a plain outline in `currentColor`,
+  so set `color` on any instance to recolour it. The symbol is copied into each
+  page, so change it in all of them.
+- Hovering the example page's hero cat, the Apply row, the submit button or
+  the middle footer cat runs the `wiggle` animation (off under reduced motion,
+  and on touch for the first three).
+- **Colors**: every value is a CSS variable in `:root` at the top of
+  `styles.css`. Surfaces: `--accent` and `--shell` `#DAF1E7` (the page and the
+  column), `--field` `#A7DCC2` (the green behind the floating card from 560px).
+  Greens: `--primary` `#1D7C50`, `--primary-strong` `#196B48`,
+  `--primary-soft` `#59C08C`. All text clears WCAG AA: white on `--primary` is
+  5.18:1, link green on the column is 5.47:1, `--text-muted` on the column is
+  5.03:1. Swap the hues and re-check contrast before shipping.
 - `favicon.svg` and `apple-touch-icon.png` are the cat on a green tile.
 
 ## Images
 
-Replace the two generated placeholders in `images/`:
+- `images/mckayla-228.jpg`: the Previous work thumbnail, a 228 x 304 crop from
+  the top of a mckaylablanca.com screenshot. The frame shows 3:4 from the top,
+  so crop to that and keep it small.
+- `images/mckayla-phone.jpg`: the full-length phone screenshot inside the
+  home page stencil. The stencil is a screenshot, not a live iframe, because
+  mckaylablanca.com refuses to be framed by other sites. Any phone-width
+  capture works; it fills the screen from the top. To show a different site,
+  swap this image and the stencil's `href` in `index.html`.
+- `images/og-image.jpg`: 1200 x 630 social share card. Regenerate it if the
+  brand changes.
 
-- `images/mckayla.png`: screenshot of mckaylablanca.com (any size; the phone frame crops 3:4 from the top)
-- `images/og-image.jpg`: 1200x630 social share card (the current one is real, regenerate if the brand changes)
+Images are cached for a week (`vercel.json`). **When you replace one, give it
+a new filename** and update the reference, or returning visitors may see the
+old one for up to a week.
 
-Also update the `https://calicowebsites.com` URLs in the `og:`/`canonical` tags
-once the real domain is attached. Social previews need absolute URLs.
+## Moving to a custom domain
+
+Every absolute URL (canonical, `og:`, `twitter:`, the sitemap) uses
+`https://calico-website.vercel.app`. Social crawlers don't run JavaScript, so
+these have to be literal. Once the domain is attached, run this once from the
+project folder (works in Git Bash, Linux and macOS):
+
+```sh
+sed -i.bak 's#https://calico-website.vercel.app#https://yourdomain.com#g' *.html *.txt *.xml && rm *.bak
+```
 
 ## Local preview
 
 ```sh
-python3 -m http.server 3000
-# then open http://localhost:3000
+npx serve .        # quick; maps /apply to apply.html like Vercel does
+npx vercel dev     # exact production behaviour, including the headers
 ```
 
-Use a server rather than opening the file directly. `app.js` and the images are
-referenced from the site root (`/app.js`, `/images/…`).
+Use one of these rather than opening the files directly or using
+`python -m http.server`. The links are clean URLs (`/apply`, `/example`) and
+assets are referenced from the site root, so a plain file server 404s on them.
 
 ## Deploy
 
@@ -117,10 +132,15 @@ static site with no framework preset.
 
 ## Security notes
 
-- The form posts to Formspree, so no inbox address is exposed anywhere in the
-  page source. The honeypot field (`_gotcha`) catches the dumber bots.
+- The form posts to Formspree, so no inbox address is needed in the form. The
+  honeypot field (`_gotcha`) catches the dumber bots.
 - `vercel.json` sets a CSP with `script-src 'self'`. **No inline `<script>` will
   run**. Any JS you add must go in a file. Inline `<style>` is still allowed.
 - The CSP allows Google Fonts (`fonts.googleapis.com` / `fonts.gstatic.com`). If
   you self-host the fonts later, drop those two entries.
+- `frame-ancestors 'self'` and `X-Frame-Options: SAMEORIGIN` stop other sites
+  from framing any page. Your own pages may still frame each other.
+- HSTS is set without `includeSubDomains` or `preload`. Add those only once the
+  custom domain is settled and every subdomain serves HTTPS; preloading is hard
+  to undo.
 - All external links carry `rel="noopener noreferrer"`.

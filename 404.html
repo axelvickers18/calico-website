@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<!-- Vercel serves this for any missing path, so every URL below is
+     root-relative. It needs no absolute URLs and no social tags. -->
+<title>Page not found | Calico Websites</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#DAF1E7" />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap" />
+
+<link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ==========================================================================
+     The calico cat, defined once and re-used. The outline draws in
+     currentColor, so it takes the colour of whatever it sits in.
+     ========================================================================== -->
+<svg class="cat-defs" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="calico" viewBox="0 0 28 30">
+      <g fill="none" stroke="currentColor" stroke-width="1.5"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="13" cy="10" r="5.8" />
+        <path d="M8.8 6 8.1 1.9 12 4.3" />
+        <path d="M17.2 6 17.9 1.9 14 4.3" />
+        <circle cx="11.2" cy="9.6" r=".75" fill="currentColor" stroke="none" />
+        <circle cx="14.8" cy="9.6" r=".75" fill="currentColor" stroke="none" />
+        <path d="M13 15.8 9.2 26M13 15.8 16.8 26M9.2 26h7.6" />
+        <path d="M16.8 26c4.5-.8 5.6-5.6 2.4-7.6" />
+        <path d="M7.6 11.2H3.2M7.8 12.8 4 13.6" />
+        <path d="M18.4 11.2h4.4M18.2 12.8 22 13.6" />
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="shell">
+<main id="main">
+
+  <div class="apply-art notfound-art reveal" role="img" aria-label="Calico Websites logo: a cat">
+    <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
+  </div>
+
+  <h1 class="apply-title reveal" style="--i:1">Page not found</h1>
+  <p class="apply-lead reveal" style="--i:2">This cat looked everywhere. The page you wanted has moved or never existed.</p>
+
+  <div class="links">
+    <a class="link link--cta reveal" style="--i:3" href="/">
+      <span class="link-icon" aria-hidden="true"><svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg></span>
+      <span class="link-text">
+        <span class="link-label">Back to the home page</span>
+      </span>
+      <span class="link-meta" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+
+</main>
+
+<!-- Footer ------------------------------------------------------------- -->
+<footer class="footer">
+  <div class="cats reveal" aria-hidden="true">
+    <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
+    <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
+    <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
+  </div>
+  <div class="footer-meta">
+    <!-- EDIT THESE TWO. Replace the address and the handle with your own.
+         The mailto: and the href both need changing. -->
+    <p class="footer-contact">
+      <a href="mailto:hello@example.com">hello@example.com</a>
+      <span class="footer-dot" aria-hidden="true">&middot;</span>
+      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer">instagram.com/yourhandle</a>
+    </p>
+    <p>&copy; <span class="footer-wordmark">Calico Websites</span> <span data-year>2026</span></p>
+  </div>
+</footer>
+</div>
+
+<script src="/app.js" defer></script>
+</body>
+</html>

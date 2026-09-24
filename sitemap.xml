@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /example is left out on purpose: it is noindex. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://calico-website.vercel.app/</loc></url>
+  <url><loc>https://calico-website.vercel.app/apply</loc></url>
+</urlset>

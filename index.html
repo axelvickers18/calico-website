@@ -10,7 +10,7 @@
      not run JavaScript, so this cannot live in app.js.
      To move to a custom domain, run this once from the project folder:
 
-       sed -i '' 's#https://calico-website.vercel.app#https://yourdomain.com#g' index.html apply.html
+       sed -i.bak 's#https://calico-website.vercel.app#https://yourdomain.com#g' *.html *.txt *.xml && rm *.bak
 
      =========================================================================== -->
 <title>Calico Websites</title>
@@ -50,32 +50,12 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ==========================================================================
-     The calico cat, defined once and re-used. Patches are clipped to the head
-     and body so they stay inside the outline. Recolour with --patch-a/b/c.
+     The calico cat, defined once and re-used. The outline draws in
+     currentColor, so it takes the colour of whatever it sits in.
      ========================================================================== -->
 <svg class="cat-defs" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <clipPath id="cc-head"><circle cx="13" cy="10" r="5.8" /></clipPath>
-    <clipPath id="cc-body"><path d="M13 15.8 9.2 26h7.6Z" /></clipPath>
-
     <symbol id="calico" viewBox="0 0 28 30">
-      <!-- The coat. Patches steer clear of the eyes so the face stays readable,
-           and the whole thing fades out via --coat-opacity on small icons,
-           where the detail would just turn to mush. -->
-      <g style="opacity:var(--coat-opacity, 1)">
-        <circle cx="13" cy="10" r="5.8" fill="#fff" />
-        <path d="M13 15.8 9.2 26h7.6Z" fill="#fff" />
-        <g clip-path="url(#cc-head)">
-          <ellipse cx="16.8" cy="6.4" rx="3.4" ry="2.6" fill="var(--patch-b)" />
-          <ellipse cx="9.6" cy="12.6" rx="3" ry="2.3" fill="var(--patch-a)" />
-          <ellipse cx="8.9" cy="7.4" rx="2.2" ry="1.8" fill="var(--patch-c)" />
-        </g>
-        <g clip-path="url(#cc-body)">
-          <ellipse cx="15.6" cy="24.2" rx="3.4" ry="3.2" fill="var(--patch-b)" />
-          <ellipse cx="10.6" cy="25.8" rx="2.6" ry="2.2" fill="var(--patch-a)" />
-        </g>
-      </g>
-      <!-- outline -->
       <g fill="none" stroke="currentColor" stroke-width="1.5"
          stroke-linecap="round" stroke-linejoin="round">
         <circle cx="13" cy="10" r="5.8" />
@@ -124,16 +104,20 @@
     </div>
 
     <div class="hero-visual reveal" style="--i:4">
-      <!-- The stencil holds the real example page, same origin, scaled to fit.
-           Tapping anywhere on it opens that page full size. -->
-      <a class="phone" href="/example" aria-label="Open the example page">
+      <!-- The stencil shows a screenshot of a real client site, and tapping
+           anywhere on it opens the live site in a new tab. It can't be an
+           iframe: mckaylablanca.com refuses to be framed (X-Frame-Options:
+           DENY). To show a different site, swap the href and the screenshot;
+           any phone-width capture works, it crops from the top. -->
+      <a class="phone" href="https://mckaylablanca.com" target="_blank" rel="noopener noreferrer"
+         aria-label="Open mckaylablanca.com, a site I built (opens in a new tab)">
         <span class="phone-screen">
-          <iframe src="/example" title="Preview of an example link-in-bio page"
-                  loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+          <img src="/images/mckayla-phone.jpg" width="485" height="959"
+               alt="" decoding="async" />
         </span>
-        <span class="phone-hint" aria-hidden="true">Tap to explore &rarr;</span>
+        <span class="phone-hint" aria-hidden="true">Tap to visit &rarr;</span>
       </a>
-      <p class="phone-caption">A real example page. Open it and click around.</p>
+      <p class="phone-caption">mckaylablanca.com, a real client site. Open it and click around.</p>
     </div>
 
   </div>
@@ -167,11 +151,12 @@
 
       <!-- ===== ONE WORK CARD. Copy this whole <a> block to add another =====
            Change: the href, the image src + alt, the name, and the tag line.
-           Put new screenshots in /images/. Any size works; the frame crops
-           3:4 from the top. -->
+           Put new screenshots in /images/ under a new filename (images are
+           cached for a week). Any size works; the frame crops 3:4 from the
+           top, so a 228 x 304 crop keeps the file small. -->
       <a class="work-card reveal" href="https://mckaylablanca.com" target="_blank" rel="noopener noreferrer">
         <span class="work-frame">
-          <img class="work-shot" src="/images/mckayla.png" width="485" height="959"
+          <img class="work-shot" src="/images/mckayla-228.jpg" width="228" height="304"
                loading="lazy" decoding="async"
                alt="The mckaylablanca.com link-in-bio page on a phone" />
         </span>
