@@ -12,14 +12,14 @@
 var CONFIG = {
 
   /* ---------------------------------------------------------------------
-     APPLICATION FORM → Formspree
-     Applications post to the endpoint below and arrive in the Formspree
+     REQUEST FORM (apply.html) → Formspree
+     Requests post to the endpoint below and arrive in the Formspree
      inbox for this form, and by email. To point them somewhere else, swap
      this endpoint and the matching action="" on the form in apply.html.
      --------------------------------------------------------------------- */
   form: {
     endpoint: 'https://formspree.io/f/xvkgryrv',
-    subject: 'New site application (Calico Websites)',
+    subject: 'New website request (Calico Websites)',
     messages: {
       notConnected: 'The form isn’t switched on yet. Try again soon.',   /* only shown if the endpoint above is cleared */
       sending: 'Sending…',
@@ -70,11 +70,32 @@ var CONFIG = {
     if (endpointIsLive()) form.setAttribute('action', CONFIG.form.endpoint);
     if (status) status.setAttribute('tabindex', '-1');
 
+    /* "Something else" opens a small text box. CSS opens it too (:has), but
+       this also covers older browsers, moves the cursor into it, and
+       disables it while closed so a stale answer isn't sent. */
+    var otherBox = form.querySelector('[data-other-field]');
+    var otherRadio = form.querySelector('#w-other');
+    if (otherBox && otherRadio) {
+      var otherInput = otherBox.querySelector('input');
+      var syncOther = function (moveFocus) {
+        var open = otherRadio.checked;
+        otherBox.classList.toggle('is-open', open);
+        otherInput.disabled = !open;
+        if (open && moveFocus) otherInput.focus();
+      };
+      var whats = form.querySelectorAll('input[name="what"]');
+      for (var w = 0; w < whats.length; w++) {
+        whats[w].addEventListener('change', function () { syncOther(true); });
+      }
+      form.addEventListener('reset', function () { setTimeout(function () { syncOther(false); }, 0); });
+      syncOther(false);
+    }
+
     /* Swap the form for the thank-you panel, and move focus to it so it is
        announced rather than silently replacing what was on screen. */
     function showDone() {
       if (!done) {
-        say('Application sent! I’ll get back to you within 2 days.', 'success');
+        say('Request sent! We’ll be in touch by email.', 'success');
         return;
       }
       form.hidden = true;

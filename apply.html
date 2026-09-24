@@ -13,26 +13,26 @@
        sed -i.bak 's#https://calico-website.vercel.app#https://yourdomain.com#g' *.html *.txt *.xml && rm *.bak
 
      =========================================================================== -->
-<title>Apply | Calico Websites</title>
-<meta name="description" content="Custom link-in-bio pages and simple websites for creators and small businesses. I design it and set it up for you." />
+<title>Get your website | Calico Websites</title>
+<meta name="description" content="Tell us about yourself and what your website is for. We design and build it around you and set it up on your own personal domain." />
 <link rel="canonical" href="https://calico-website.vercel.app/apply" />
 <meta name="theme-color" content="#DAF1E7" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Calico Websites" />
-<meta property="og:title" content="Apply | Calico Websites" />
-<meta property="og:description" content="Custom link-in-bio pages and simple websites for creators and small businesses. I design it and set it up for you." />
+<meta property="og:title" content="Get your website | Calico Websites" />
+<meta property="og:description" content="Tell us about yourself and what your website is for. We design and build it around you and set it up on your own personal domain." />
 <meta property="og:url" content="https://calico-website.vercel.app/apply" />
-<meta property="og:image" content="https://calico-website.vercel.app/images/og-image.jpg" />
+<meta property="og:image" content="https://calico-website.vercel.app/images/og-image-v2.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Calico Websites: custom link-in-bio pages and simple websites." />
+<meta property="og:image:alt" content="Calico Websites: your own website, on your own personal domain." />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Apply | Calico Websites" />
-<meta name="twitter:description" content="Custom link-in-bio pages and simple websites for creators and small businesses. I design it and set it up for you." />
-<meta name="twitter:image" content="https://calico-website.vercel.app/images/og-image.jpg" />
-<meta name="twitter:image:alt" content="Calico Websites: custom link-in-bio pages and simple websites." />
+<meta name="twitter:title" content="Get your website | Calico Websites" />
+<meta name="twitter:description" content="Tell us about yourself and what your website is for. We design and build it around you and set it up on your own personal domain." />
+<meta name="twitter:image" content="https://calico-website.vercel.app/images/og-image-v2.jpg" />
+<meta name="twitter:image:alt" content="Calico Websites: your own website, on your own personal domain." />
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -79,12 +79,13 @@
     <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
   </div>
 
-  <h1 class="apply-title reveal" style="--i:1">Apply for a site</h1>
-  <p class="apply-lead reveal" style="--i:2">A few quick questions. I&rsquo;ll send you a price and a start date, usually within 2 days.</p>
+  <h1 class="apply-title reveal" style="--i:1">Get your website</h1>
+  <p class="apply-lead reveal" style="--i:2">A few questions to start. We&rsquo;ll reply by email with a price.</p>
 
   <!-- The action below is the fallback for visitors with JavaScript off.
        With JS on, app.js posts to CONFIG.form.endpoint instead and keeps
-       them on the page. Keep the two in step. -->
+       them on the page. Keep the two in step. Every named field is sent,
+       and arrives in the Formspree email under its name="" -->
   <form class="form reveal" style="--i:3"
         data-apply-form method="POST" action="https://formspree.io/f/xvkgryrv">
 
@@ -96,14 +97,20 @@
     <div class="field">
       <label for="f-email">Your email</label>
       <input id="f-email" name="email" type="email" required autocomplete="email"
-             inputmode="email" placeholder="So I can send your preview" />
+             inputmode="email" placeholder="Where we&rsquo;ll send your preview" />
+    </div>
+
+    <div class="field">
+      <label for="f-social">Instagram or main social link</label>
+      <input id="f-social" name="social" type="text" required autocomplete="url"
+             autocapitalize="none" spellcheck="false" placeholder="@yourname or a link" />
     </div>
 
     <fieldset class="field choices">
-      <legend>What do you want?</legend>
+      <legend>What&rsquo;s the website for?</legend>
       <div class="pill-row">
-        <input class="pill-input" type="radio" name="what" id="w-bio" value="Link in bio" required />
-        <label class="pill" for="w-bio">Link in bio</label>
+        <input class="pill-input" type="radio" name="what" id="w-creator" value="Me, as a creator" required />
+        <label class="pill" for="w-creator">Me, as a creator</label>
 
         <input class="pill-input" type="radio" name="what" id="w-portfolio" value="Portfolio" />
         <label class="pill" for="w-portfolio">Portfolio</label>
@@ -111,63 +118,57 @@
         <input class="pill-input" type="radio" name="what" id="w-business" value="Small business" />
         <label class="pill" for="w-business">Small business</label>
 
-        <input class="pill-input" type="radio" name="what" id="w-unsure" value="Not sure yet" />
-        <label class="pill" for="w-unsure">Not sure yet</label>
+        <input class="pill-input" type="radio" name="what" id="w-other" value="Something else" />
+        <label class="pill" for="w-other">Something else</label>
+      </div>
+
+      <!-- Opens when "Something else" is picked (CSS :has, plus app.js) -->
+      <div class="other-field" data-other-field>
+        <label class="sr-only" for="f-what-other">What else is the website for?</label>
+        <input id="f-what-other" name="what_other" type="text"
+               placeholder="Tell us what the site is for" />
       </div>
     </fieldset>
 
-    <fieldset class="field choices">
-      <legend>How soon?</legend>
-      <div class="pill-row">
-        <input class="pill-input" type="radio" name="when" id="t-asap" value="ASAP" required />
-        <label class="pill" for="t-asap">ASAP</label>
+    <div class="field">
+      <label for="f-goal">What are you working toward? <span class="optional">(optional)</span></label>
+      <input id="f-goal" name="goal" type="text"
+             placeholder="More brand deals, selling your art, booking shows" />
+    </div>
 
-        <input class="pill-input" type="radio" name="when" id="t-weeks" value="In a few weeks" />
-        <label class="pill" for="t-weeks">In a few weeks</label>
+    <div class="field">
+      <label for="f-domain">The link you&rsquo;d like <span class="optional">(optional)</span></label>
+      <input id="f-domain" name="preferred_domain" type="text"
+             autocapitalize="none" spellcheck="false" placeholder="yourname.com" />
+      <p class="field-hint">Just an idea is fine. We&rsquo;ll check what&rsquo;s available with you.</p>
+    </div>
 
-        <input class="pill-input" type="radio" name="when" id="t-norush" value="No rush" />
-        <label class="pill" for="t-norush">No rush</label>
-      </div>
-    </fieldset>
+    <div class="field">
+      <label for="f-existing">A link you already own <span class="optional">(optional)</span></label>
+      <input id="f-existing" name="existing_domain" type="text"
+             autocapitalize="none" spellcheck="false" placeholder="Only if you have one, like yourname.com" />
+    </div>
 
-    <!-- ===== EDIT THESE BUDGET RANGES to match what you charge. Change the
-         text in each <label> and the matching value="" on its input. ===== -->
-    <fieldset class="field choices">
-      <legend>Estimated budget</legend>
-      <div class="pill-row">
-        <input class="pill-input" type="radio" name="budget" id="b-1" value="Under $100" required />
-        <label class="pill" for="b-1">Under $100</label>
-
-        <input class="pill-input" type="radio" name="budget" id="b-2" value="$100 to $200" />
-        <label class="pill" for="b-2">$100 to $200</label>
-
-        <input class="pill-input" type="radio" name="budget" id="b-3" value="$200 to $300" />
-        <label class="pill" for="b-3">$200 to $300</label>
-
-        <input class="pill-input" type="radio" name="budget" id="b-4" value="$300 to $500" />
-        <label class="pill" for="b-4">$300 to $500</label>
-
-        <input class="pill-input" type="radio" name="budget" id="b-5" value="$500 plus" />
-        <label class="pill" for="b-5">$500+</label>
-
-        <input class="pill-input" type="radio" name="budget" id="b-6" value="Not sure yet" />
-        <label class="pill" for="b-6">Not sure yet</label>
-      </div>
-      <p class="field-hint">A rough range is fine.</p>
-    </fieldset>
+    <div class="field">
+      <label for="f-style">Style or inspiration <span class="optional">(optional)</span></label>
+      <textarea id="f-style" name="style" rows="3"
+                placeholder="Colours, fonts, or sites you like"></textarea>
+    </div>
 
     <div class="field">
       <label for="f-details">Anything else <span class="optional">(optional)</span></label>
       <textarea id="f-details" name="details" rows="3"
-                placeholder="Your Instagram, what you do, anything you already have"></textarea>
+                placeholder="Anything we should know"></textarea>
     </div>
 
+    <p class="form-note">No need to send photos yet. We&rsquo;ll reply with a price first, then you can send your photos and videos.</p>
+
     <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-    <input type="hidden" name="_subject" value="New site application" data-form-subject />
+    <input type="hidden" name="_subject" value="New website request" data-form-subject />
 
     <button class="submit" type="submit">
       <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
-      <span>Send application</span>
+      <span>Send request</span>
     </button>
 
     <p class="form-status" data-form-status role="status" aria-live="polite"></p>
@@ -176,13 +177,14 @@
   <!-- Swapped in for the form once it sends -->
   <div class="form-done reveal" data-form-done hidden tabindex="-1">
     <svg class="cat" viewBox="0 0 28 30" aria-hidden="true" focusable="false"><use href="#calico" /></svg>
-    <p class="done-title">Application sent!</p>
-    <p class="done-sub">I&rsquo;ll get back to you within 2 days.</p>
+    <p class="done-title">Request sent!</p>
+    <p class="done-sub">Thanks. We&rsquo;ll be in touch by email.</p>
   </div>
 
 </main>
 
 <!-- Footer ------------------------------------------------------------- -->
+<!-- Add a contact email and social link here once they're confirmed. -->
 <footer class="footer">
   <div class="cats reveal" aria-hidden="true">
     <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
@@ -190,13 +192,6 @@
     <svg class="cat" viewBox="0 0 28 30" focusable="false"><use href="#calico" /></svg>
   </div>
   <div class="footer-meta">
-    <!-- EDIT THESE TWO. Replace the address and the handle with your own.
-         The mailto: and the href both need changing. -->
-    <p class="footer-contact">
-      <a href="mailto:hello@example.com">hello@example.com</a>
-      <span class="footer-dot" aria-hidden="true">&middot;</span>
-      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer">instagram.com/yourhandle</a>
-    </p>
     <p>&copy; <span class="footer-wordmark">Calico Websites</span> <span data-year>2026</span></p>
   </div>
 </footer>
